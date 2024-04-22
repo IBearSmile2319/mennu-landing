@@ -1,0 +1,68 @@
+---
+import Logo from "@/assets/svg/Logo.astro";
+import NombreApp from "@/assets/svg/NombreApp.astro";
+import Typography from "./ui/typography/Typography.astro";
+import {
+  getLangFromUrl,
+  useTranslatedPath,
+  useTranslations,
+} from "@/i18n/utils";
+// remote last slash from pathname
+const { pathname } = Astro.url;
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const translationPath = useTranslatedPath(lang);
+
+const pages = [
+  {
+    name: t("header.partners.link"),
+    href: translationPath("/partners"),
+    active: pathname.includes(translationPath("/partners")),
+  },
+  {
+    name: t("header.advertisers.link"),
+    href: translationPath("/advertisers"),
+    active: pathname.includes(translationPath("/advertisers")),
+  },
+  {
+    name: t("header.about.link"),
+    href: translationPath("/about"),
+    active: pathname.includes(translationPath("/about")),
+  },
+].map((page) => ({
+  ...page,
+  active: page.active ?? pathname === page.href,
+}));
+---
+
+<header class="h-[100px] w-full bg-primary">
+  <nav class="flex w-full items-center gap-7 h-full px-4 mx-auto max-w-[1200px]">
+    <a href="/" class="flex items-center h-[60.29px] gap-2">
+      <Logo size="60" />
+      <NombreApp />
+    </a>
+    <!-- ocultar en mobile -->
+    <ul class="items-center gap-4 h-full hidden lg:flex">
+      {
+        pages.map((page) => (
+          <li class="flex items-center h-[56px] mt-2">
+            <a
+              href={page.href}
+              class={`flex items-center gap-[8px] px-4 py-2 rounded-full ${page.active ? "bg-[#EEEEEE]" : ""}`}
+            >
+              <Typography
+                variant="label"
+                weight="large"
+                color={page.active ? "primary" : "white"}
+                align="center"
+                class="font-medium"
+              >
+                {page.name}
+              </Typography>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+</header>

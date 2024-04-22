@@ -1,5 +1,4 @@
 ---
-import Typography from "@/components/ui/typography/Typography.astro";
 import { getLangFromUrl, useTranslations } from "@/i18n/utils";
 import Layout from "@/layouts/Layout.astro";
 const lang = getLangFromUrl(Astro.url);
@@ -7,8 +6,8 @@ const t = useTranslations(lang);
 
 ---
 
-<Layout 
-title={t("app.home.title")}
-description={t("app.home.description")}
->
+<Layout title={t("app.advertisers.title")} description={t("app.advertisers.description")} >
+    <h1>
+        advertisers
+    </h1>
 </Layout>

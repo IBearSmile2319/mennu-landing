@@ -1,0 +1,29 @@
+---
+import Logo from "@/assets/svg/Logo.astro";
+import NombreApp from "@/assets/svg/NombreApp.astro";
+
+
+---
+
+<footer class="h-[409px] max-w-[100vw] bg-accent">
+    <div class="flex items-center h-full px-4 mx-auto max-w-[1200px]">
+        <!-- card socials -->
+        <div
+            class={`
+                w-[250px]
+                h-[260.28px]
+                bg-primary
+                rounded-[12px]
+                py-[16px]
+                px-[0px]
+                items-center
+                flex
+                flex-col
+                gap-2
+            `}
+        >
+            <Logo size={60}/>
+            <NombreApp/>
+        </div>
+    </div>
+</footer>

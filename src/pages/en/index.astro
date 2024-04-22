@@ -1,0 +1,28 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { useTranslations, getLangFromUrl, getRouteFromUrl, useTranslatedPath } from "@/i18n/utils";
+import { languages } from '@/i18n/ui';
+const route = getRouteFromUrl(Astro.url);
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const translatePath = useTranslatedPath(lang);
+
+---
+
+<Layout 
+title={t("app.home.title")}
+description={t("app.home.description")}
+>
+<a
+  href="/en/advertisers"
+>
+  Advertisers
+</a>
+<ul>
+    {Object.entries(languages).map(([lang, label]) => (
+      <li>
+        <a href={translatePath(`/${route ? route : ''}`, lang)}>{label}</a>
+      </li>
+    ))}
+  </ul>
+</Layout>

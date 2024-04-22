@@ -1,0 +1,30 @@
+---
+    import { colors, typography, align as AlingData } from './types.ts';
+    type TAlignProps = "left" | "center" | "right" | "justify" | "start" | "end";
+    type TTypographyVariant = "display" | "heading" | "label" | "paragraph";
+    type TTypographyWeight = "large" | "medium" | "small" | "xSmall";
+    type TColors = "primary" | "secondary" | "accent" | "complementaryI" | "complementaryII" | "white";
+    interface Props{
+        variant: TTypographyVariant;
+        weight: TTypographyWeight;
+        align?:  TAlignProps;
+        color?: TColors;
+        class?: string;
+    }
+    const { variant = "display", weight="medium", align="left", class: className, color="primary" } = Astro.props;
+
+---
+
+<div
+     class:list={[
+        typography[variant][weight],
+        AlingData[align],
+        colors[color],
+        className,
+     ]}
+     >
+    <slot/>
+     </div>
+    
+
+
