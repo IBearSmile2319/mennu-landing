@@ -7,8 +7,15 @@ const t = useTranslations(lang);
 
 ---
 
-<Layout 
+<Layout
 title={t("app.home.title")}
 description={t("app.home.description")}
 >
+{
+    [...Array(10)].map((_, index) => (
+        <Typography variant="display" weight="large">
+            {t("app.home.title")}
+        </Typography>
+    ))
+}
 </Layout>

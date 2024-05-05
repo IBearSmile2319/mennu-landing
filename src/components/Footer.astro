@@ -1,29 +1,172 @@
 ---
+import Correo from "@/assets/svg/Correo.astro";
+import Facebook from "@/assets/svg/Facebook.astro";
+import Instagram from "@/assets/svg/Instagram.astro";
 import Logo from "@/assets/svg/Logo.astro";
 import NombreApp from "@/assets/svg/NombreApp.astro";
+import Tiktok from "@/assets/svg/Tiktok.astro";
+import Whatsapp from "@/assets/svg/Whatsapp.astro";
+import Linkedin from "@/assets/svg/linkedin.astro";
 
-
+import Typography from "./ui/typography/Typography.astro";
+import {
+  getLangFromUrl,
+  useTranslatedPath,
+  useTranslations,
+} from "@/i18n/utils";
+import ButtonsAppsStore from "./ButtonsAppsStore.astro";
+// remote last slash from pathname
+const { pathname } = Astro.url;
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const translationPath = useTranslatedPath(lang);
+const linksFooter = [
+  {
+    title: t("footer.useMennu"),
+    links: [
+      {
+        name: t("footer.partnersMennu"),
+        url: translationPath("/partners"),
+      },
+      {
+        name: t("footer.aboutUs"),
+        url: translationPath("/about"),
+      },
+    ],
+  },
+  {
+    title: t("footer.knowMennu"),
+    links: [
+      {
+        name: t("footer.aboutUs"),
+        url: translationPath("/about"),
+      },
+      {
+        name: t("footer.contactUs"),
+        url: translationPath("/contact"),
+      },
+      {
+        name: t("footer.frequentQuestions"),
+        url: translationPath("/faq"),
+      },
+    ],
+  },
+  {
+    title: t("footer.ourPolicy"),
+    links: [
+      {
+        name: t("footer.privacyPolicy"),
+        url: translationPath("/privacy-policy"),
+      },
+      {
+        name: t("footer.termsOfUse"),
+        url: translationPath("/terms-of-use"),
+      },
+    ],
+  },
+];
 ---
 
-<footer class="h-[409px] max-w-[100vw] bg-accent">
-    <div class="flex items-center h-full px-4 mx-auto max-w-[1200px]">
-        <!-- card socials -->
-        <div
-            class={`
-                w-[250px]
-                h-[260.28px]
-                bg-primary
-                rounded-[12px]
-                py-[16px]
-                px-[0px]
-                items-center
-                flex
-                flex-col
-                gap-2
-            `}
-        >
-            <Logo size={60}/>
-            <NombreApp/>
+<footer class="lg:h-[424px] max-w-[100vw] border-t-2 border-primary items-center">
+  <div class="flex items-center h-full px-4 mx-auto max-w-[1200px] gap-4 flex-col justify-center mt-4 lg:mt-0 mb-4 lg:mt-0">
+    <div class="flex flex-col lg:flex-row lg:h-[260.28px] w-full justify-around items-center gap-4">
+    <!-- card socials borderRadius 24px, 500px, 500px, 500px-->
+      <div class={" w-[250px] h-[260.28px] bg-primary rounded-[12px] py-[16px] px-[0px] items-center flex flex-col gap-2 rounded-t-[500px] rounded-r-[500px] rounded-b-[500px] rounded-l-[500px] rounded-ss-[24px]"}>
+        <Logo size={60} />
+        <NombreApp />
+        <!-- list Socials -->
+        <ul class="flex flex-row gap-2 mt-2">
+          <li class="flex items center gap-2">
+            <a
+              href="#"
+              class="w-[40px] h-[40px] flex items-center justify-center"
+            >
+              <Facebook />
+            </a>
+          </li>
+          <li class="flex items center gap-2">
+            <a
+              href="#"
+              class="w-[40px] h-[40px] flex items-center justify-center"
+            >
+              <Linkedin />
+            </a>
+          </li>
+          <li class="flex items center gap-2">
+            <a
+              href="#"
+              class="w-[40px] h-[40px] flex items-center justify-center"
+            >
+              <Tiktok />
+            </a>
+          </li>
+        </ul>
+        <ul class="flex flex-row gap-2">
+          <li class="flex items center gap-2">
+            <a
+              href="#"
+              class="w-[40px] h-[40px] flex items-center justify-center"
+            >
+              <Instagram />
+            </a>
+          </li>
+          <li class="flex items center gap-2">
+            <a
+              href="#"
+              class="w-[40px] h-[40px] flex items-center justify-center"
+            >
+              <Whatsapp />
+            </a>
+          </li>
+          <li class="flex items center gap-2">
+            <a
+              href="#"
+              class="w-[40px] h-[40px] flex items-center justify-center"
+            >
+              <Correo />
+            </a>
+          </li>
+        </ul>
+      </div>
+      <!-- links  -->
+      <div class="flex flex-col justify-between">
+        <div class="flex flex-col lg:flex-row justify-between">
+        {
+          linksFooter.map((link) => (
+            <div class="flex flex-col gap-2 lg:h-[180px] w-[268px] p-4 items-center lg:items-start ">
+              <Typography
+                variant="heading",
+                weight="xSmall"
+                class="text-center"
+              >
+                {link.title}
+              </Typography>
+              <ul class="flex flex-col gap-2 items-center lg:items-start">
+                {link.links.map((link) => (
+                  <li>
+                    <a href={link.url} class="">
+                      <Typography variant="paragraph" weight="medium">
+                          {link.name}
+                      </Typography>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))
+        }
         </div>
+        <div>
+          <ButtonsAppsStore/>
+        </div>
+      </div>
     </div>
+    <!--  -->
+    <Typography
+      variant="label"
+      weight="medium"
+      >
+      © 2024 Mennu
+    </Typography>
+  </div>
 </footer>
