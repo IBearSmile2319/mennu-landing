@@ -13,19 +13,20 @@ const cards = [
     title: "Básico", // heading/xsmall
     description: "Visibilidad media.\n5 días de vigencia.", //Paragraph / Small
     price: "S/ 50 mes", //Heading/X Small (20\28)
-    class: "from-complementaryI to-complementaryI-gradient border-complementaryI"
+    class:
+      "from-complementaryI to-complementaryI-gradient border-complementaryI",
   },
   {
     title: "Estándar", // heading/xsmall
     description: "Visibilidad alta.\n7 días de vigencia.", //Paragraph / Small
     price: "S/ 75 mes", //Heading/X Small (20\28)
-    class: "from-accent to-accent-gradient border-accent"
+    class: "from-accent to-accent-gradient border-accent",
   },
   {
     title: "Premium", // heading/xsmall
     description: "Visibilidad muy alta.\n10 días de vigencia.", //Paragraph / Small
     price: "S/ 100 mes", //Heading/X Small (20\28)
-    class: "from-[#AFACAC] to-primary-gradient border-primary"
+    class: "from-[#AFACAC] to-primary-gradient border-primary",
   },
 ];
 ---
@@ -54,10 +55,181 @@ const cards = [
       },
     ]}
   />
+  <!-- ilustaciones 1 -->
+  <section class="flex lg:h-[598px] my-8 lg:my-0">
+    <!-- container -->
+    <div class="w-full mx-auto max-w-[1280px] flex flex-col gap-4 items-center">
+      <Typography
+        variant="heading"
+        weight="medium"
+        align="center"
+        class="mt-14"
+      >
+        ¿Por qué ser parte de Mennu?
+      </Typography>
+      <div
+        class="flex flex-col lg:flex-row w-full lg:h-[440px] justify-center items-center gap-8"
+      >
+        <!-- card 1 -->
+        <div class="flex flex-col h-[440px] w-[286px] relative">
+          <Image
+            src={"/src/assets/img/business-ilustration-1.webp"}
+            width={270}
+            height={320}
+            alt={""}
+            class={"z-10"}
+          />
+          <!-- card text -->
+          <div class="absolute bottom-0 right-0">
+            <!-- 100px, 24px, 24px, 24px -->
+            <div
+              class="flex flex-col h-[360px] w-[270px] shadow-2xl justify-end rounded-[24px] bg-white p-6 rounded-tl-[100px] shadow-[#00183415] relative items-center"
+            >
+              <div class="flex flex-row h-20 absolute bottom-0 px-6">
+                <Typography variant="heading" weight="xSmall" align="center">
+                  Incrementa tus ventas
+                </Typography>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- card 2 -->
+        <div class="flex flex-col h-[440px] w-[286px] relative">
+          <Image
+            src={"/src/assets/img/business-ilustration-2.webp"}
+            width={270}
+            height={320}
+            alt={""}
+            class={"z-10"}
+          />
+          <!-- card text -->
+          <div class="absolute bottom-0 right-0">
+            <!-- 100px, 24px, 24px, 24px -->
+            <div
+              class="flex flex-col h-[360px] w-[270px] shadow-2xl justify-end rounded-[24px] bg-white p-6 rounded-tl-[100px] shadow-[#00183415] relative items-center"
+            >
+              <div class="flex flex-col h-20 absolute bottom-0 px-6">
+                <Typography variant="heading" weight="xSmall" align="center">
+                  Planes de bajo costo
+                </Typography>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- card 3 -->
+        <div class="flex flex-col h-[440px] w-[286px] relative">
+          <Image
+            src={"/src/assets/img/business-ilustration-3.webp"}
+            width={270}
+            height={320}
+            alt={""}
+            class={"z-10"}
+          />
+          <!-- card text -->
+          <div class="absolute bottom-0 right-0">
+            <!-- 100px, 24px, 24px, 24px -->
+            <div
+              class="flex flex-col h-[360px] w-[270px] shadow-2xl rounded-[24px] bg-white p-6 rounded-tl-[100px] shadow-[#00183415] relative items-center"
+            >
+              <div class="flex flex-col h-20 absolute bottom-0 px-6">
+                <Typography variant="heading" weight="xSmall" align="center">
+                  Es masivo y popular
+                </Typography>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- ilustaciones 2 -->
+  <section class="flex lg:h-[611px] my-8 lg:my-0">
+    <!-- container -->
+    <div class="w-full mx-auto max-w-[1280px] flex flex-col gap-4 items-center">
+      <Typography
+        variant="heading"
+        weight="medium"
+        align="center"
+        class="mt-14"
+      >
+        ¿Quiénes pueden ser parte de Mennu?
+      </Typography>
+      <div
+        class="flex flex-col lg:flex-row w-full lg:h-[423px] justify-center items-center gap-8"
+      >
+        <!-- card 1 -->
+        <div class="flex flex-col h-[416px] w-[270px] relative items-center">
+          <Image
+            src={"/src/assets/img/business-ilustration-section-1.webp"}
+            width={224}
+            height={224}
+            alt={""}
+            class={"z-10"}
+          />
+          <div class="absolute top-4 right-0">
+            <div
+              class="flex flex-col h-[303px] w-[270px] shadow-2xl justify-end rounded-[24px] bg-white p-6 rounded-tl-[100px] shadow-[#00183415] relative items-center"
+            >
+              <div class="flex flex-col h-24 items-center justify-center absolute bottom-0 px-6">
+                <Typography variant="heading" weight="xSmall" align="center">
+                  Planes de bajo costo
+                </Typography>
+              </div>
+            </div>
+          </div>
+        </div>
+         <!-- card 2 -->
+         <div class="flex flex-col h-[416px] w-[270px] relative items-center lg:mt-40">
+          <Image
+            src={"/src/assets/img/business-ilustration-section-2.webp"}
+            width={224}
+            height={224}
+            alt={""}
+            class={"z-10"}
+          />
+          <div class="absolute top-4 right-0">
+            <div
+              class="flex flex-col h-[303px] w-[270px] shadow-2xl justify-end rounded-[24px] bg-white p-6 rounded-tl-[100px] shadow-[#00183415] relative items-center"
+            >
+              <div class="flex flex-col  h-24 items-center justify-center absolute bottom-0 px-6">
+                <Typography variant="heading" weight="xSmall" align="center">
+                  Puestos de comida
+                </Typography>
+              </div>
+            </div>
+          </div>
+        </div>
+         <!-- card 3 -->
+         <div class="flex flex-col h-[416px] w-[270px] relative items-center">
+          <Image
+            src={"/src/assets/img/business-ilustration-section-3.webp"}
+            width={224}
+            height={224}
+            alt={""}
+            class={"z-10"}
+          />
+          <div class="absolute top-4 right-0">
+            <!-- 100px, 24px, 24px, 24px -->
+            <div
+              class="flex flex-col h-[303px] w-[270px] shadow-2xl justify-end rounded-[24px] bg-white p-6 rounded-br-[100px] shadow-[#00183415] relative items-center"
+            >
+              <div class="flex flex-col h-24 items-center justify-center absolute bottom-0 px-6">
+                <Typography variant="heading" weight="xSmall" align="center">
+                  Cocina en casa
+                </Typography>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
   <!-- methods payment -->
-  <section class="flex h-[377px] items-center">
-    <div class="w-full lg:h-[164px] mx-auto max-w-[1200px] flex flex-col gap-4">
-      <Typography variant="heading" weight="medium">
+  <section class="flex h-[377px] my-8 lg:my-0 items-center">
+    <div
+      class="w-full lg:h-[292px] mx-auto max-w-[1280px] flex flex-col gap-4 items-center lg:items-start justify-center bg-primary px-8 rounded-tl-[100px] rounded-bl-3xl" 
+    >
+      <Typography variant="heading" weight="medium" color="white">
         Nuestros planes de pago
       </Typography>
       <!-- cards -->
@@ -66,24 +238,30 @@ const cards = [
           cards.map((card) => (
             // gradiante opaco a la izquierda y entero a la derecha con ese bg-complementaryI
             <div
-            class:list={[
-              "bg-gradient-to-bl border-2 w-[468px] h-[104px] flex flex-row rounded-xl rounded-tr-3xl p-4 gap-6",
-              card.class,
-            ]}
+              class:list={[
+                "bg-gradient-to-bl border-2 w-[368px] h-[104px] flex flex-row rounded-xl rounded-tr-3xl p-4 gap-6",
+                card.class,
+              ]}
             >
               <div class="flex flex-col w-full gap-2">
-                <Typography variant="label" weight="medium">
+                <Typography variant="label" weight="medium" color="white">
                   {card.title}
                 </Typography>
                 <Typography
                   variant="paragraph"
                   weight="xSmall"
                   class={"text-gray-600"}
+                  color="white"
                 >
                   {card.description}
                 </Typography>
               </div>
-              <Typography variant="heading" weight="xSmall" class="w-full flex flex-row justify-end">
+              <Typography
+                variant="heading"
+                weight="xSmall"
+                class="w-full flex flex-row justify-end"
+                color="white"
+              >
                 {card.price}
               </Typography>
             </div>
@@ -95,7 +273,7 @@ const cards = [
   <!-- ilustration download app -->
   <section class="flex h-[725px] items-center">
     <div
-      class="w-full lg:h-[504px] mx-auto max-w-[1200px] flex flex-row bg-primary rounded-tr-3xl rounded-br-[100px]"
+      class="w-full lg:h-[504px] mx-auto max-w-[1280px] flex flex-row bg-primary rounded-tr-3xl rounded-br-[100px]"
     >
       <div class="w-full flex flex-col items-center justify-center">
         <div class="gap-4 flex flex-col">
@@ -119,7 +297,7 @@ const cards = [
       </div>
       <div class="w-full flex flex-col items-center justify-center">
         <Image
-          src="/src/assets/img/Mobile-frame.webp"
+          src="/src/assets/img/Mobile-frame-negocios.webp"
           alt="Descarga mennu negocios"
           width={478}
           height={646}
