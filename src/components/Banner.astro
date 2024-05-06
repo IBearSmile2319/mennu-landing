@@ -1,0 +1,83 @@
+---
+import { Image } from "astro:assets";
+import Typography from "./ui/typography/Typography.astro";
+
+interface Props {
+  title: string;
+  description: string;
+  textBtn: string;
+  url: string;
+  imgs: {
+    src: string;
+    alt: string;
+    width: number;
+    height: number;
+  }[];
+}
+
+const { title, description, textBtn, url, imgs } = Astro.props;
+
+const mb = imgs.length > 1 ? "mb-20" : "mb-0";
+
+---
+
+<section class="flex h-[612px]">
+  <!-- container -->
+  <div class="w-full mx-auto max-w-[1200px] flex flex-row">
+    <!-- info container -->
+    <div class="flex flex-col justify-center w-full h-full gap-4">
+      <!-- h1 -->
+      <Typography variant="heading" weight="large">
+        {title}
+      </Typography>
+      <!-- h2 -->
+      <Typography variant="heading" weight="xSmall" class="text-gray-600">
+        {description}
+      </Typography>
+      <!-- button -->
+      <a
+        href={url}
+        class={`w-[343px]
+            h-[56px]
+            bg-primary
+            flex
+            flex-row
+            items-center
+            justify-center
+            `}
+      >
+        <Typography variant="label" weight="large" color="white" align="center">
+          {textBtn}
+        </Typography>
+      </a>
+    </div>
+    <!-- imgs rounds -->
+    <div
+      class={`
+        flex
+        items-center
+        ${imgs.length === 1 ? "justify-start" : "justify-center"}
+        w-full
+        h-full
+        py-20
+        space-y-10
+        gap-4
+        flex-row-reverse
+        `}
+    >
+      {
+        imgs.map((img) => (
+          <Image
+            src={img.src}
+            alt={img.alt}
+            width={img.width}
+            height={img.height}
+            class:list={[
+              mb
+            ]}
+          />
+        ))
+      }
+    </div>
+  </div>
+</section>

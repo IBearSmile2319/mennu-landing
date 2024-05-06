@@ -17,9 +17,9 @@ const translationPath = useTranslatedPath(lang);
 
 const pages = [
   {
-    name: t("header.partners.link"),
-    href: translationPath("/partners"),
-    active: pathname.includes(translationPath("/partners")),
+    name: t("header.business.link"),
+    href: translationPath("/business"),
+    active: pathname.includes(translationPath("/business")),
   },
   {
     name: t("header.advertisers.link"),
@@ -39,7 +39,7 @@ const pages = [
 
 <header class="h-[100px] w-full bg-primary">
   <nav
-    class="group flex w-full items-center gap-7 h-full px-4 mx-auto max-w-[1200px] justify-between lg:justify-normal"
+    class="group flex w-full mx-auto max-w-[1200px] items-center gap-7 h-full px-4  justify-between lg:justify-normal"
   >
     <a href="/" class="flex items-center h-[60.29px] gap-2">
       <Logo size="60" />

@@ -16,7 +16,6 @@ import {
 } from "@/i18n/utils";
 import ButtonsAppsStore from "./ButtonsAppsStore.astro";
 // remote last slash from pathname
-const { pathname } = Astro.url;
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 const translationPath = useTranslatedPath(lang);

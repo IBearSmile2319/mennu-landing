@@ -1,4 +1,5 @@
 ---
+import Banner from "@/components/Banner.astro";
 import { getLangFromUrl, useTranslations } from "@/i18n/utils";
 import Layout from "@/layouts/Layout.astro";
 const lang = getLangFromUrl(Astro.url);
@@ -7,7 +8,24 @@ const t = useTranslations(lang);
 ---
 
 <Layout title={t("app.advertisers.title")} description={t("app.advertisers.description")} >
-    <h1>
-        advertisers
-    </h1>
+    <Banner
+    title="Potencia tu negocio"
+    description="Tu publicidad tendrá mayor alcance por personas y empresas que forman parte de tu público objetivo."
+    textBtn="Comprar publicidad"
+    url="#"
+    imgs={[
+        {
+            alt: "Usando mennu seras un emprendedor exitoso",
+            height: 370,
+            width: 240,
+            src: "/src/assets/img/banner-advertisers-2.webp"
+        },
+        {
+            alt: "una mujer cocinando y emprendiendo en mennu",
+            height: 370,
+            width: 240,
+            src: "/src/assets/img/banner-advertisers-1.webp"
+        },
+    ]}
+/>
 </Layout>

@@ -13,11 +13,11 @@ export const ui = {
         // home
         'app.home.title': 'Mennu | Inicio',
         'app.home.description': 'Come rico, come bien… menús económicos al alcance de tu bolsillo en lugares cercanos a donde te encuentres.',
-        //  socios en ingles es partners
-        'app.partners.title': 'Mennu | Socios',
-        'app.partners.description': `La buena comida no tiene porque ser cara.\n Si piensas así… puedes ser socio de MENNU. Hacemos que todas las personas que están cerca a tu negocio puedan disfrutar la comida que vendes.`,
+        //  socios en ingles es business
+        'app.business.title': 'Mennu | negocios',
+        'app.business.description': `La buena comida no tiene porque ser cara.\n Si piensas así… puedes ser socio de MENNU. Hacemos que todas las personas que están cerca a tu negocio puedan disfrutar la comida que vendes.`,
         // anunciantes en ingles es advertisers
-        'app.advertisers.title': 'Mennu | Anunciantes',
+        'app.advertisers.title': 'Mennu | Publicidad',
         'app.advertisers.description': `Tu publicidad tendrá mayor alcance por personas y empresas que forman parte de tu público objetivo.`,
         // nosotros en ingles es about
         'app.about.title': 'Mennu | Nosotros',
@@ -25,8 +25,8 @@ export const ui = {
         // ++++++++++
         // HEADER
         // ++++++++++
-        'header.partners.link': 'Socios',
-        'header.advertisers.link': 'Anunciantes',
+        'header.business.link': 'Negocios de comida',
+        'header.advertisers.link': 'Publicidad',
         'header.about.link': 'Nosotros',
         // ++++++++++
         // FOOTER
@@ -69,9 +69,9 @@ export const ui = {
         // home
         'app.home.title': 'Mennu | Home',
         'app.home.description': 'Eat well, eat well ... economic menus within reach of your pocket in places close to where you are.',
-        //  socios en ingles es partners
-        'app.partners.title': 'Mennu | Partners',
-        'app.partners.description': `Good food doesn't have to be expensive.\n If you think so… you can
+        //  socios en ingles es business
+        'app.business.title': 'Mennu | business',
+        'app.business.description': `Good food doesn't have to be expensive.\n If you think so… you can
         be a MENNU partner. We make all the people who are near your business can enjoy the food you sell.`,
         // anunciantes en ingles es advertisers
         'app.advertisers.title': 'Mennu | Advertisers',
@@ -82,7 +82,7 @@ export const ui = {
         // ++++++++++
         // HEADER
         // ++++++++++
-        'header.partners.link': 'Partners',
+        'header.business.link': 'food businesses',
         'header.advertisers.link': 'Advertisers',
         'header.about.link': 'About',
         // ++++++++++
@@ -125,12 +125,12 @@ export const ui = {
 
 export const routes = {
     es: {
-        'partners': 'partners',
+        'business': 'business',
         'advertisers': 'advertisers',
         'about': 'about',
     },
     en: {
-        'partners': 'partners',
+        'business': 'business',
         'advertisers': 'advertisers',
         'about': 'about',
     },

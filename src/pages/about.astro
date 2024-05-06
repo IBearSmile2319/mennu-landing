@@ -1,19 +1,37 @@
 ---
 import Layout from "@/layouts/Layout.astro";
-import { useTranslations, getLangFromUrl, getRouteFromUrl, useTranslatedPath } from "@/i18n/utils";
-import { languages } from '@/i18n/ui';
-const route = getRouteFromUrl(Astro.url);
+import { 
+    useTranslations, 
+    getLangFromUrl, 
+    // getRouteFromUrl, useTranslatedPath 
+} from "@/i18n/utils";
+// import { languages } from '@/i18n/ui';
+import Banner from "@/components/Banner.astro";
+// const route = getRouteFromUrl(Astro.url);
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
-const translatePath = useTranslatedPath(lang);
+// const translatePath = useTranslatedPath(lang);
 ---
 
 <Layout title={t("app.about.title")} description={t("app.about.description")} >
-    <ul>
-        {Object.entries(languages).map(([lang, label]) => (
-          <li>
-            <a href={translatePath(`/${route ? route : ''}`, lang)}>{label}</a>
-          </li>
-        ))}
-      </ul>
+      <Banner
+      title="Mennu es un buscador de comida barata y buena cerca del lugar donde te encuentres "
+      description=""
+      textBtn="Contáctanos"
+      url="#"
+      imgs={[
+          {
+              alt: "Usando mennu seras un emprendedor exitoso",
+              height: 370,
+              width: 240,
+              src: "/src/assets/img/banner-about-2.webp"
+          },
+          {
+              alt: "una mujer cocinando y emprendiendo en mennu",
+              height: 370,
+              width: 240,
+              src: "/src/assets/img/banner-about-1.webp"
+          },
+      ]}
+  />
 </Layout>

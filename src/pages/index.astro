@@ -1,21 +1,24 @@
 ---
-import Typography from "@/components/ui/typography/Typography.astro";
+import Banner from "@/components/Banner.astro";
 import { getLangFromUrl, useTranslations } from "@/i18n/utils";
 import Layout from "@/layouts/Layout.astro";
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
-
 ---
 
-<Layout
-title={t("app.home.title")}
-description={t("app.home.description")}
->
-{
-    [...Array(10)].map((_, index) => (
-        <Typography variant="display" weight="large">
-            {t("app.home.title")}
-        </Typography>
-    ))
-}
+<Layout title={t("app.home.title")} description={t("app.home.description")}>
+  <Banner
+    title="Comida BARATA y BUENA cerca de ti"
+    description="Come rico, come bien… menús económicos al alcance de tu bolsillo en lugares cercanos a donde te encuentres."
+    textBtn="Descarga la APP"
+    url="#"
+    imgs={[
+      {
+        alt: "Comida BARATA y BUENA cerca de ti",
+        width: 435,
+        height: 544,
+        src: "/src/assets/img/home-banner.webp"
+      }
+    ]}
+  />
 </Layout>

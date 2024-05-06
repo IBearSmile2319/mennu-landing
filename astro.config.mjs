@@ -9,7 +9,7 @@ export default defineConfig({
 		enabled: false,
 	},
   integrations: [tailwind()],
-  output: 'server',
+  output: 'static',
   i18n: {
     defaultLocale: "es",
     locales: ["es", "en"],

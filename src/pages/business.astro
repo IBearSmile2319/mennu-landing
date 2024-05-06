@@ -1,0 +1,131 @@
+---
+import Banner from "@/components/Banner.astro";
+import ButtonsAppsStore from "@/components/ButtonsAppsStore.astro";
+import Typography from "@/components/ui/typography/Typography.astro";
+import { getLangFromUrl, useTranslations } from "@/i18n/utils";
+import Layout from "@/layouts/Layout.astro";
+import { Image } from "astro:assets";
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const cards = [
+  {
+    title: "Básico", // heading/xsmall
+    description: "Visibilidad media.\n5 días de vigencia.", //Paragraph / Small
+    price: "S/ 50 mes", //Heading/X Small (20\28)
+    class: "from-complementaryI to-complementaryI-gradient border-complementaryI"
+  },
+  {
+    title: "Estándar", // heading/xsmall
+    description: "Visibilidad alta.\n7 días de vigencia.", //Paragraph / Small
+    price: "S/ 75 mes", //Heading/X Small (20\28)
+    class: "from-accent to-accent-gradient border-accent"
+  },
+  {
+    title: "Premium", // heading/xsmall
+    description: "Visibilidad muy alta.\n10 días de vigencia.", //Paragraph / Small
+    price: "S/ 100 mes", //Heading/X Small (20\28)
+    class: "from-[#AFACAC] to-primary-gradient border-primary"
+  },
+];
+---
+
+<Layout
+  title={t("app.business.title")}
+  description={t("app.business.description")}
+>
+  <Banner
+    title="Sácale el jugo a tu negocio"
+    description="Llenamos tu local de gente que consuma la comida que ofreces."
+    textBtn="Descarga la APP"
+    url="#"
+    imgs={[
+      {
+        alt: "Usando mennu seras un emprendedor exitoso",
+        height: 370,
+        width: 240,
+        src: "/src/assets/img/banner-business-2.webp",
+      },
+      {
+        alt: "una mujer cocinando y emprendiendo en mennu",
+        height: 370,
+        width: 240,
+        src: "/src/assets/img/banner-business-1.webp",
+      },
+    ]}
+  />
+  <!-- methods payment -->
+  <section class="flex h-[377px] items-center">
+    <div class="w-full lg:h-[164px] mx-auto max-w-[1200px] flex flex-col gap-4">
+      <Typography variant="heading" weight="medium">
+        Nuestros planes de pago
+      </Typography>
+      <!-- cards -->
+      <div class="flex flex-col lg:flex-row gap-4">
+        {
+          cards.map((card) => (
+            // gradiante opaco a la izquierda y entero a la derecha con ese bg-complementaryI
+            <div
+            class:list={[
+              "bg-gradient-to-bl border-2 w-[468px] h-[104px] flex flex-row rounded-xl rounded-tr-3xl p-4 gap-6",
+              card.class,
+            ]}
+            >
+              <div class="flex flex-col w-full gap-2">
+                <Typography variant="label" weight="medium">
+                  {card.title}
+                </Typography>
+                <Typography
+                  variant="paragraph"
+                  weight="xSmall"
+                  class={"text-gray-600"}
+                >
+                  {card.description}
+                </Typography>
+              </div>
+              <Typography variant="heading" weight="xSmall" class="w-full flex flex-row justify-end">
+                {card.price}
+              </Typography>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+  <!-- ilustration download app -->
+  <section class="flex h-[725px] items-center">
+    <div
+      class="w-full lg:h-[504px] mx-auto max-w-[1200px] flex flex-row bg-primary rounded-tr-3xl rounded-br-[100px]"
+    >
+      <div class="w-full flex flex-col items-center justify-center">
+        <div class="gap-4 flex flex-col">
+          <Typography variant="heading" weight="large" color="white">
+            Descarga Mennu Negocios
+          </Typography>
+          <Typography variant="paragraph" weight="medium" color="white">
+            Consigue nuevos clientes y aumenta tus ventas
+          </Typography>
+          <!-- qr y btns -->
+          <div class="flex flex-row items-center gap-4">
+            <Image
+              src="/src/assets/img/qr-prueba.png"
+              alt="Descarga mennu negocios"
+              width={160}
+              height={160}
+            />
+            <ButtonsAppsStore />
+          </div>
+        </div>
+      </div>
+      <div class="w-full flex flex-col items-center justify-center">
+        <Image
+          src="/src/assets/img/Mobile-frame.webp"
+          alt="Descarga mennu negocios"
+          width={478}
+          height={646}
+          class={"mt-11"}
+        />
+      </div>
+    </div>
+  </section>
+</Layout>
