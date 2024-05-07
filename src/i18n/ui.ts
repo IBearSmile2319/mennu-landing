@@ -20,14 +20,14 @@ export const ui = {
         'app.advertisers.title': 'Mennu | Publicidad',
         'app.advertisers.description': `Tu publicidad tendrá mayor alcance por personas y empresas que forman parte de tu público objetivo.`,
         // nosotros en ingles es about
-        'app.about.title': 'Mennu | Nosotros',
+        'app.about.title': 'Mennu | Conócenos',
         'app.about.description': `Usamos la tecnología para que las personas que menos tienen puedan comer bien.`,
         // ++++++++++
         // HEADER
         // ++++++++++
         'header.business.link': 'Negocios de comida',
         'header.advertisers.link': 'Publicidad',
-        'header.about.link': 'Nosotros',
+        'header.about.link': 'Conócenos',
         // ++++++++++
         // FOOTER
         // ++++++++++ 
@@ -37,7 +37,7 @@ export const ui = {
         'footer.advertiseMennu': 'Anuncia en Mennu',
         // Conoce Mennu
         'footer.knowMennu': 'Conoce Mennu',
-        'footer.aboutUs': 'Nosotros',
+        'footer.aboutUs': 'Conócenos',
         'footer.contactUs': 'Contáctanos',
         'footer.frequentQuestions': 'Preguntas Frecuentes',
         // Nuestra política
@@ -77,14 +77,14 @@ export const ui = {
         'app.advertisers.title': 'Mennu | Advertisers',
         'app.advertisers.description': `Your advertising will have a greater reach by people and companies that are part of your target audience.`,
         // nosotros en ingles es about
-        'app.about.title': 'Mennu | About',
+        'app.about.title': 'Mennu | know us',
         'app.about.description': `We use technology so that people who have the least can eat well.`,
         // ++++++++++
         // HEADER
         // ++++++++++
         'header.business.link': 'food businesses',
         'header.advertisers.link': 'Advertisers',
-        'header.about.link': 'About',
+        'header.about.link': 'know us',
         // ++++++++++
         // FOOTER
         // ++++++++++
@@ -94,7 +94,7 @@ export const ui = {
         'footer.advertiseMennu': 'Advertise on Mennu',
         // Conoce Mennu
         'footer.knowMennu': 'Know Mennu',
-        'footer.aboutUs': 'About Us',
+        'footer.aboutUs': 'know us',
         'footer.contactUs': 'Contact Us',
         'footer.frequentQuestions': 'Frequent Questions',
         // Nuestra política

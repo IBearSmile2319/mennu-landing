@@ -1,91 +1,94 @@
-import { useState } from "preact/hooks"
+import { useState } from "preact/hooks";
 import Typography from "../ui/typography/Typography";
-import { isValidateEmail } from "@/utils";
-// const RECAPTCHA_SITE_KEY = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
+
+const typeRoleOption = [
+    "Comensal",
+    "Negocio de comida",
+    "Anunciante",
+    "Otro"
+];
+
+const listMotiveOptions = [
+    "Dar una sugerencia",
+    "Quiero trabajar con ustedes",
+    "Reportar un problema",
+    "Otro"
+]
 
 interface IForm {
+    role: string;
     nombre: string;
     apellido: string;
     celular: string;
-    correo: string;
-    consulta: string
+    motivo: string;
+    mensaje: string;
 }
 
-const ContactFormNeg = () => {
-    // const [recaptchaResponse, setRecaptchaResponse] = useState<null | {
-    //     score: number;
-    // }>(null);
+const ContactFormAbout = () => {
     const [loading, setLoading] = useState(false);
     const [form, setForm] = useState<IForm>({
+        role: "",
         nombre: "",
         apellido: "",
         celular: "",
-        correo: "",
-        consulta: ""
+        motivo: "",
+        mensaje: ""
     });
-
     const [errors, setErrors] = useState<IForm>({
+        role: "",
         nombre: "",
         apellido: "",
         celular: "",
-        correo: "",
-        consulta: ""
+        motivo: "",
+        mensaje: ""
     });
 
     const handleChange = (e: any) => {
-        setForm({
-            ...form,
-            [e.target.name]: e.target.value
-        });
-        setErrors({
-            ...errors,
-            [e.target.name]: ""
-        });
-    };
+        const { name, value } = e.target;
+        setForm({ ...form, [name]: value });
+        setErrors({ ...errors, [name]: "" });
+    }
 
     const validateForm = () => {
-        let errors: IForm = {
-            nombre: "",
-            apellido: "",
-            celular: "",
-            correo: "",
-            consulta: ""
-        };
-
-        if (form.nombre.length < 2) {
-            errors.nombre = "Ingresa un nombre válido";
-        }
-        if (form.apellido.length < 2) {
-            errors.apellido = "Ingresa un apellido válido";
-        }
-        if (form.celular.length !== 9) {
-            errors.celular = "Ingresa un número de celular válido";
-        }
-        if (form.correo && !isValidateEmail(form.correo)) {
-            errors.correo = "Ingresa un correo válido";
-        }
-        if (form.consulta.length < 1) {
-            errors.consulta = "Ingresa una consulta válida";
-        }
-
-        setErrors(errors);
-        return Object.values(errors).some((error) => error.length > 0);
+        return true
     }
 
     const onSubmitNeg = (e: any) => {
         e.preventDefault();
         setLoading(true);
-        console.log("hola")
         setTimeout(() => {
             setLoading(false);
         }, 2000);
         if (validateForm()) return;
     }
-
     return (
-        <div class="flex flex-col">
+        <div class="flex flex-col relative">
             <Typography variant="heading" weight="medium"> Contáctanos </Typography>
             <form onSubmit={onSubmitNeg} class="my-4 gap-4 flex flex-col">
+                {/* Indícanos si eres : select*/}
+                <label for="role" class="flex flex-col gap-1 ">
+                    <Typography variant="label" weight="small"> Indícanos si eres: </Typography>
+                    <select
+                        id="role"
+                        name="role"
+                        value={form.role}
+                        class={`bg-[#EEEEEE] h-9 p-2 appearance-none leading-tight focus:outline-none focus:shadow-none font-hind font-normal text-sm
+                        ${errors.role ? "bg-[#FFEFED] border-[#F1998E]" : ""}
+                        `}
+                        onChange={handleChange}
+                    >
+                        <option value="">Selecciona una opción</option>
+                        {typeRoleOption.map((option) => (
+                            <option value={option}>{option}</option>
+                        ))}
+                    </select>
+                    {
+                        errors.role && <Typography variant="paragraph" weight="small" color="complementaryII">
+                            {errors.role}
+                        </Typography>
+                    }
+                </label>
+                {/* nombre y apelliso: inputs */}
                 <div class="flex flex-row gap-4">
                     <label for="nombre" class="flex flex-col gap-1 w-full">
                         <Typography variant="label" weight="small"> Nombre </Typography>
@@ -107,7 +110,7 @@ const ContactFormNeg = () => {
                         }
                     </label>
                     <label for="apellido" class="flex flex-col gap-1 w-full">
-                        <Typography variant="label" weight="small"> Apellido </Typography>
+                        <Typography variant="label" weight="small"> Apellidos </Typography>
                         <input
                             type="text"
                             id="apellido"
@@ -126,6 +129,7 @@ const ContactFormNeg = () => {
                         }
                     </label>
                 </div>
+                {/* celular: input */}
                 <label for="celular" class="flex flex-col gap-1">
                     <Typography variant="label" weight="small"> Celular </Typography>
                     <input
@@ -133,7 +137,6 @@ const ContactFormNeg = () => {
                         id="celular"
                         name="celular"
                         value={form.celular}
-                        // class="bg-[#EEEEEE] h-9 p-2 appearance-none leading-tight focus:outline-none focus:shadow-none font-hind font-normal text-sm"
                         class={`bg-[#EEEEEE] h-9 p-2 appearance-none leading-tight focus:outline-none focus:shadow-none font-hind font-normal text-sm 
                         ${errors.celular ? "bg-[#FFEFED] border-[#F1998E]" : ""}
                         `}
@@ -147,49 +150,49 @@ const ContactFormNeg = () => {
                         </Typography>
                     }
                 </label>
-                <label for="correo" class="flex flex-col gap-1">
-                    <Typography variant="label" weight="small">
-                        Correo electrónico
-                    </Typography>
-                    <input
-                        type="email"
-                        id="correo"
-                        name="correo"
-                        value={form.correo}
-                        // class="bg-[#EEEEEE] h-9 p-2 appearance-none leading-tight focus:outline-none focus:shadow-none font-hind font-normal text-sm"
+                {/* motivo: select */}
+                <label for="motivo" class="flex flex-col gap-1">
+                    <Typography variant="label" weight="small"> Motivo </Typography>
+                    <select
+                        id="motivo"
+                        name="motivo"
+                        value={form.motivo}
                         class={`bg-[#EEEEEE] h-9 p-2 appearance-none leading-tight focus:outline-none focus:shadow-none font-hind font-normal text-sm
-                        ${errors.correo ? "bg-[#FFEFED] border-[#F1998E]" : ""}
+                        ${errors.motivo ? "bg-[#FFEFED] border-[#F1998E]" : ""}
                         `}
-                        placeholder="Correo electrónico (opcional)"
+                        onChange={handleChange}
+                    >
+                        <option value="">Selecciona una opción</option>
+                        {listMotiveOptions.map((option) => (
+                            <option value={option}>{option}</option>
+                        ))}
+                    </select>
+                    {
+                        errors.motivo && <Typography variant="paragraph" weight="small" color="complementaryII">
+                            {errors.motivo}
+                        </Typography>
+                    }
+                </label>
+                {/* mensaje: textarea */}
+                <label for="mensaje" class="flex flex-col gap-1">
+                    <Typography variant="label" weight="small"> Mensaje </Typography>
+                    <textarea
+                        id="mensaje"
+                        name="mensaje"
+                        value={form.mensaje}
+                        class={`bg-[#EEEEEE] p-2 appearance-none leading-tight focus:outline-none focus:shadow-none font-hind font-normal text-sm
+                        ${errors.mensaje ? "bg-[#FFEFED] border-[#F1998E]" : ""}
+                        `}
+                        placeholder="Escribe tu mensaje"
                         onChange={handleChange}
                     />
                     {
-                        errors.correo && <Typography variant="paragraph" weight="small" color="complementaryII">
-                            {errors.correo}
+                        errors.mensaje && <Typography variant="paragraph" weight="small" color="complementaryII">
+                            {errors.mensaje}
                         </Typography>
                     }
                 </label>
-                <label for="consulta" class="flex flex-col gap-1">
-                    <Typography variant="label" weight="small">
-                        Indícanos cuál es tu consulta
-                    </Typography>
-                    <textarea
-                        id="consulta"
-                        name="consulta"
-                        value={form.consulta}
-                        // class="bg-[#EEEEEE] h-24 p-2 appearance-none leading-tight focus:outline-none focus:shadow-none font-hind font-normal text-sm"
-                        class={`bg-[#EEEEEE] h-24 p-2 appearance-none leading-tight focus:outline-none focus:shadow-none font-hind font-normal text-sm
-                        ${errors.consulta ? "bg-[#FFEFED] border-[#F1998E]" : ""}
-                        `}
-                        placeholder="Escribe el detalle de tu consulta"
-                        onChange={handleChange}
-                    ></textarea>
-                    {
-                        errors.consulta && <Typography variant="paragraph" weight="small" color="complementaryII">
-                            {errors.consulta}
-                        </Typography>
-                    }
-                </label>
+
                 <button
                     class="bg-primary text-white h-14 w-80 disabled:bg-[#BDBDBD] disabled:cursor-not-allowed disabled:opacity-50"
                     type="submit"
@@ -198,11 +201,11 @@ const ContactFormNeg = () => {
                 >
 
                     <Typography variant="label" weight="large" color="white" align="center">
-                        {loading ? 
-                        <div class="flex justify-center items-center gap-2">
-                            <div class="w-4 h-4 border-2 border-t-[#fff] border-l-[#fff] rounded-full animate-spin"></div>
-                        </div>
-                        : "Enviar"}
+                        {loading ?
+                            <div class="flex justify-center items-center gap-2">
+                                <div class="w-4 h-4 border-2 border-t-[#fff] border-l-[#fff] rounded-full animate-spin"></div>
+                            </div>
+                            : "Enviar"}
                     </Typography>
                 </button>
             </form>
@@ -210,4 +213,4 @@ const ContactFormNeg = () => {
     )
 }
 
-export default ContactFormNeg
+export default ContactFormAbout

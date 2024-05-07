@@ -1,15 +1,17 @@
 ---
 import { Image } from "astro:assets";
+import AndroidImg from "../assets/img/android.webp"
+import AppleImg from "../assets/img/apple.webp"
 ---
 
 <!-- logos de las playstore descargar en android y apple store responsivo tailwind-->
-<div class="flex flex-col md:flex-row justify-center items-center gap-2">
+<div class="flex md:flex-row justify-center items-center gap-2">
   <a
     href="https://play.google.com/store/apps/details?id=com.astro"
     target="_blank"
   >
     <Image
-      src="/src/assets/img/android.webp"
+      src={AndroidImg}
       alt="Get it on Google Play"
       width={135}
       height={40}
@@ -17,7 +19,7 @@ import { Image } from "astro:assets";
   </a>
   <a href="https://apps.apple.com/us/app/astro/id1482117669" target="_blank">
     <Image
-      src="/src/assets/img/apple.webp"
+      src={AppleImg}
       alt="Download on the App Store"
       width={119}
       height={40}

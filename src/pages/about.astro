@@ -1,37 +1,138 @@
 ---
 import Layout from "@/layouts/Layout.astro";
-import { 
-    useTranslations, 
-    getLangFromUrl, 
-    // getRouteFromUrl, useTranslatedPath 
+import Acordeon from "@/components/about/Acordeon.astro";
+import ContactFormAbout from "@/components/about/ContactFormAbout";
+import {
+  useTranslations,
+  getLangFromUrl,
+  // getRouteFromUrl, useTranslatedPath
 } from "@/i18n/utils";
 // import { languages } from '@/i18n/ui';
 import Banner from "@/components/Banner.astro";
+import { Image } from "astro:assets";
+import Typography from "@/components/ui/typography/Typography.astro";
 // const route = getRouteFromUrl(Astro.url);
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 // const translatePath = useTranslatedPath(lang);
 ---
 
-<Layout title={t("app.about.title")} description={t("app.about.description")} >
-      <Banner
-      title="Mennu es un buscador de comida barata y buena cerca del lugar donde te encuentres "
-      description=""
-      textBtn="Contáctanos"
-      url="#"
-      imgs={[
-          {
-              alt: "Usando mennu seras un emprendedor exitoso",
-              height: 370,
-              width: 240,
-              src: "/src/assets/img/banner-about-2.webp"
-          },
-          {
-              alt: "una mujer cocinando y emprendiendo en mennu",
-              height: 370,
-              width: 240,
-              src: "/src/assets/img/banner-about-1.webp"
-          },
-      ]}
+<Layout title={t("app.about.title")} description={t("app.about.description")}>
+  <Banner
+    title="Mennu es un buscador de comida barata y buena cerca del lugar donde te encuentres "
+    description=""
+    textBtn="Contáctanos"
+    url="#"
+    imgs={[
+      {
+        alt: "Usando mennu seras un emprendedor exitoso",
+        height: 370,
+        width: 240,
+        src: "/img/banner-about-2.webp",
+      },
+      {
+        alt: "una mujer cocinando y emprendiendo en mennu",
+        height: 370,
+        width: 240,
+        src: "/img/banner-about-1.webp",
+      },
+    ]}
   />
+  <section class="flex lg:h-[628px] mb-8 lg:mb-0 items-center">
+    <!-- container -->
+    <div
+      class="w-full mx-auto max-w-[1280px] lg:h-[500px] flex flex-row flex-wrap items-center justify-center gap-8"
+    >
+      <!-- cards -->
+      <div class="flex flex-col w-[428px] gap-3">
+        <Image
+          src={"/img/about-ilustration-2.webp"}
+          alt="Ilustracion de una multitud"
+          width={428}
+          height={320}
+        />
+        <div class="px-2 gap-2 flex flex-col">
+          <Typography variant="heading" weight="xSmall">
+            Sostenibilidad Social
+          </Typography>
+          <Typography variant="paragraph" weight="medium">
+            Nos enfocamos en el 91% de la población que tiene pocos recursos
+            económicos para poder comprar una buena comida. Comer bien no tiene
+            por qué ser caro y con mayor razón para los que tienen menos.
+          </Typography>
+        </div>
+      </div>
+      <!-- card 2 -->
+      <div class="flex flex-col w-[428px] gap-3">
+        <Image
+          src={"/img/about-ilustration-1.webp"}
+          alt="Ilustracion de una multitud"
+          width={428}
+          height={320}
+        />
+        <div class="px-2 gap-2 flex flex-col">
+          <Typography variant="heading" weight="xSmall">
+            Sostenibilidad Económica
+          </Typography>
+          <Typography variant="paragraph" weight="medium">
+            98% de las empresas e independientes son micro empresarios. Nos
+            enfocamos en los micro empresarios gastronómicos que necesiten
+            potenciar sus negocios a través de la tecnología. Les ofrecemos
+            planes de pago simples y económicos.
+          </Typography>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- acordion -->
+  <section class="flex lg:h-[629px] mb-8 lg:mb-0 items-center">
+    <!-- container -->
+    <div
+      class="w-full mx-auto max-w-[1280px] lg:h-[501px] flex flex-col border-accent border-2 rounded-3xl gap-4 lg:p-8"
+    >
+      <Typography variant="heading" weight="medium">
+        Preguntas frecuentes
+      </Typography>
+      <Acordeon
+        title="¿Los negocios de comida pertenecen a MENNU?"
+        details="No, cada negocio que vende comida se registra y carga periódicamente los menús que ofrece."
+        active
+      />
+      <Acordeon
+        title="¿Cómo puedo saber si la comida que ofrece cada negocio es buena?"
+        details="Recomendamos revisar las calificaciones que tiene cada negocio."
+        active
+      />
+      <Acordeon
+        title="¿Qué puedo hacer si el negocio de comida no respeta el precio del menú consignado en la APP?"
+        details="Puedes calificarlo dentro de la app."
+        active
+      />
+    </div>
+  </section>
+  <!-- formulario -->
+  <section class="flex lg:h-[796px] mb-8 lg:mb-0 items-center">
+    <!-- container -->
+    <div
+      class="w-full mx-auto max-w-[1280px] lg:h-[532px] from-[#C2FD94] to-[#EDFFDF ] bg-gradient-to-bl rounded-tr-3xl rounded-br-[100px] flex flex-row flex-wrap justify-center items-center gap-6"
+    >
+      <div class="lg:h-[532px] relative lg:w-[475px]">
+        <Image
+          src={"/img/about-ilustration-3.webp"}
+          alt="Ilustracion usando mennu"
+          width={420}
+          height={420}
+          class="lg:absolute lg:top-[-20%] lg:right-0"
+        />
+      </div>
+      <div class="lg:h-[532px] relative lg:w-[475px]">
+        <div
+          class="border-complementaryI border-2 rounded-tr-[100px] rounded-3xl w-[475px] h-[724px] lg:absolute lg:top-[-20%] bg-secondary gap-4 p-8"
+        >
+          <ContactFormAbout client:load />
+        </div>
+      </div>
+    </div>
+  </section>
 </Layout>

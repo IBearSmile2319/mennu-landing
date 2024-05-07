@@ -10,7 +10,7 @@ export default defineConfig({
   devToolbar: {
     enabled: false
   },
-  output: 'hybrid',
+  output: 'static',
   integrations: [tailwind(), preact()],
   i18n: {
     defaultLocale: "es",

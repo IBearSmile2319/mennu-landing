@@ -1,0 +1,123 @@
+---
+import Typography from "../ui/typography/Typography.astro";
+
+interface Props {
+  title: string;
+  details: string;
+  active?: boolean;
+}
+
+const { title, details, active } = Astro.props;
+---
+
+<div class="accordion group relative"
+  class:list={active ? "active" : ""}
+>
+  <button
+    class="accordion__button flex w-full flex-1 items-center justify-between p-3 gap-2 text-left font-medium transitionsm:px-4"
+    class:list={active ? "active" : ""}
+    type="button"
+    id={`${title} accordion menu button`}
+    aria-expanded={active ? "true" : "false"}
+    aria-controls={`${title} accordion menu content`}
+  >
+    <Typography variant="label" weight="large">
+      {title}
+    </Typography>
+
+    <!-- if using astro and the astro-icon package -->
+    <!-- <Icon
+      name="tabler:chevron-down"
+      aria-hidden="true"
+      class="accordion__chevron h-7 w-7 shrink-0 transition-transform"
+    /> -->
+
+    <!-- use this is not using astro-icon (or another SVG you like) -->
+    <svg
+      class="accordion__chevron h-7 w-7 shrink-0 transition-transform"
+      class:list={active ? "rotate-180" : ""}
+      aria-hidden="true"
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      ><path
+        fill="none"
+        stroke="currentColor"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="m6 9l6 6l6-6"></path></svg
+    >
+  </button>
+
+  <div
+    id={`${title} accordion menu content`}
+    aria-labelledby={`${title} accordion menu button`}
+    class="accordion__content  overflow-hidden pb-4 px-3 transition-all duration-300 ease-in-out sm:px-4 border-b-[#0000001F] border-b"
+    class:list={active ? "" : "hidden max-h-0"}
+    >
+    <p class="prose mb-4 mt-1 max-w-full transition-[height]">
+      <Typography variant="paragraph" weight="medium" class="text-[#545454]">
+        {details}
+      </Typography>
+    </p>
+  </div>
+</div>
+
+<script>
+  function accordionSetup() {
+    const accordionMenus = document.querySelectorAll(
+      ".accordion"
+    ) as NodeListOf<HTMLElement>;
+    accordionMenus.forEach((accordionMenu) => {
+      const accordionButton = accordionMenu.querySelector(
+        ".accordion__button"
+      ) as HTMLElement;
+      const accordionChevron = accordionMenu.querySelector(
+        ".accordion__chevron"
+      ) as HTMLElement;
+      const accordionContent = accordionMenu.querySelector(
+        ".accordion__content"
+      ) as HTMLElement;
+
+      if (accordionButton && accordionContent && accordionChevron) {
+        accordionButton.addEventListener("click", (event) => {
+          if (!accordionMenu.classList.contains("active")) {
+            // if accordion is currently closed, so open it
+            accordionMenu.classList.add("active");
+            accordionButton.setAttribute("aria-expanded", "true");
+
+            // set max-height to the height of the accordion content
+            // this makes it animate properly
+            accordionContent.classList.remove("hidden");
+            accordionContent.style.maxHeight =
+              accordionContent.scrollHeight + "rem";
+            accordionChevron.classList.add("rotate-180");
+          } else {
+            // accordion is currently open, so close it
+            accordionMenu.classList.remove("active");
+            accordionButton.setAttribute("aria-expanded", "false");
+
+            // set max-height to the height of the accordion content
+            // this makes it animate properly
+            accordionContent.style.maxHeight = "0rem";
+            accordionChevron.classList.remove("rotate-180");
+            // delay to allow close animation
+            setTimeout(() => {
+              accordionContent.classList.add("hidden");
+            }, 300);
+          }
+          event.preventDefault();
+          return false;
+        });
+      }
+    });
+  }
+
+  // runs on initial page load
+  accordionSetup();
+
+  // runs on view transitions navigation
+  document.addEventListener("astro:after-swap", accordionSetup);
+</script>

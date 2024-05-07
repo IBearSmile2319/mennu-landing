@@ -20,7 +20,7 @@ const t = useTranslations(lang);
         alt: "Comida BARATA y BUENA cerca de ti",
         width: 435,
         height: 544,
-        src: "/src/assets/img/home-banner.webp",
+        src: "/img/home-banner.webp",
       },
     ]}
   />
@@ -34,7 +34,7 @@ const t = useTranslations(lang);
         <!-- card 1 -->
         <div class="flex flex-col h-[440px] w-[286px] relative">
           <Image
-            src={"/src/assets/img/home-ilustration-1.webp"}
+            src={"/img/home-ilustration-1.webp"}
             width={270}
             height={320}
             alt={""}
@@ -55,7 +55,7 @@ const t = useTranslations(lang);
         <!-- card 2 -->
         <div class="flex flex-col h-[440px] w-[286px] relative">
           <Image
-            src={"/src/assets/img/home-ilustration-2.webp"}
+            src={"/img/home-ilustration-2.webp"}
             width={270}
             height={320}
             alt={""}
@@ -76,7 +76,7 @@ const t = useTranslations(lang);
          <!-- card 3 -->
          <div class="flex flex-col h-[440px] w-[286px] relative">
           <Image
-            src={"/src/assets/img/home-ilustration-3.webp"}
+            src={"/img/home-ilustration-3.webp"}
             width={270}
             height={320}
             alt={""}
@@ -98,11 +98,11 @@ const t = useTranslations(lang);
     </div>
   </section>
   <!-- ilustration download app -->
-  <section class="flex h-[725px] items-center">
+  <section class="flex lg:h-[725px] mb-8 lg:mb-0 items-center">
     <div
-      class="w-full lg:h-[504px] mx-auto max-w-[1280px] flex flex-row bg-primary rounded-tr-3xl rounded-br-[100px]"
+      class="w-full lg:h-[504px] mx-auto max-w-[1280px] p-4 lg:p-0 flex flex-col lg:flex-row bg-primary rounded-tr-3xl rounded-br-[100px]"
     >
-      <div class="w-full flex flex-col items-center justify-center">
+      <div class="w-full flex flex-col lg:items-center lg:justify-center">
         <div class="gap-4 flex flex-col">
           <Typography variant="heading" weight="large" color="white">
             Descarga Mennu
@@ -113,10 +113,11 @@ const t = useTranslations(lang);
           <!-- qr y btns -->
           <div class="flex flex-row items-center gap-4">
             <Image
-              src="/src/assets/img/qr-prueba.png"
+              src="/img/qr-prueba.png"
               alt="Descarga mennu negocios"
               width={160}
               height={160}
+              class={"hidden lg:block"}
             />
             <ButtonsAppsStore />
           </div>
@@ -124,7 +125,7 @@ const t = useTranslations(lang);
       </div>
       <div class="w-full flex flex-col items-center justify-center">
         <Image
-          src="/src/assets/img/Mobile-frame.webp"
+          src="/img/Mobile-frame.webp"
           alt="Descarga mennu negocios"
           width={478}
           height={646}
