@@ -37,14 +37,7 @@ const mb = imgs.length > 1 ? "mb-20" : "mb-0";
       <!-- button -->
       <a
         href={url}
-        class={`w-[343px]
-            h-[56px]
-            bg-primary
-            flex
-            flex-row
-            items-center
-            justify-center
-            `}
+        class={`w-[343px] h-[56px] bg-primary flex flex-row items-center justify-center `}
       >
         <Typography variant="label" weight="large" color="white" align="center">
           {textBtn}
@@ -53,18 +46,7 @@ const mb = imgs.length > 1 ? "mb-20" : "mb-0";
     </div>
     <!-- imgs rounds -->
     <div
-      class={`
-        flex
-        items-center
-        ${imgs.length === 1 ? "justify-start" : "justify-center"}
-        w-full
-        h-full
-        py-20
-        space-y-10
-        gap-4
-        flex-row-reverse
-        `}
-    >
+      class={` flex items-center ${imgs.length === 1 ? "justify-start" : "justify-center"} w-full h-full py-20 space-y-10 gap-4 flex-row-reverse`}>
       {
         imgs.map((img) => (
           <Image

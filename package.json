@@ -11,8 +11,10 @@
   },
   "dependencies": {
     "@astrojs/check": "^0.5.10",
+    "@astrojs/preact": "^3.2.0",
     "@fontsource/hind": "^5.0.13",
     "astro": "^4.6.3",
+    "preact": "^10.21.0",
     "typescript": "^5.4.5"
   },
   "devDependencies": {

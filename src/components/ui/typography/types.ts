@@ -28,6 +28,8 @@ export const typography = {
         medium: 'font-hind text-[52px] font-medium leading-[64px]',
         small: 'font-hind text-[44px] font-medium leading-[52px]',
         xSmall: 'font-hind text-[36px] font-medium leading-[44px]',
+        xxLarge: "",
+        xLarge: "",
     },
     heading: {
         xxLarge: 'font-hind text-[40px] font-medium leading-[52px]',
@@ -42,12 +44,16 @@ export const typography = {
         medium: 'font-hind text-[16px] font-medium leading-[20px]',
         small: 'font-hind text-[14px] font-medium leading-[16px]',
         xSmall: 'font-hind text-[12px] font-medium leading-[16px]',
+        xxLarge: "",
+        xLarge: "",
     },
     paragraph: {
         large: 'font-hind text-[18px] font-regular leading-[28px]',
         medium: 'font-hind text-[16px] font-regular leading-[24px]',
         small: 'font-hind text-[14px] font-regular leading-[20px]',
         xSmall: 'font-hind text-[12px] font-regular leading-[20px]',
+        xxLarge: "",
+        xLarge: "",
     },
 } as const;
 
@@ -75,12 +81,13 @@ export const colors = {
     white: 'text-white',
 } as const;
 
-// export type TTypographyProps = {
-//     variant?: keyof typeof typography;
-//     weight?: keyof typeof typography["heading"];
-//     align?: keyof typeof align;
-//     color?: keyof typeof colors;
-// };
+export type TTypographyProps = {
+    variant?: keyof typeof typography;
+    weight?: keyof typeof typography["heading"];
+    align?: keyof typeof align;
+    color?: keyof typeof colors;
+    class?: string;
+};
 
 
 

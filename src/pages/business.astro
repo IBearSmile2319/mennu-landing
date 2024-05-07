@@ -7,28 +7,6 @@ import Layout from "@/layouts/Layout.astro";
 import { Image } from "astro:assets";
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
-
-const cards = [
-  {
-    title: "Básico", // heading/xsmall
-    description: "Visibilidad media.\n5 días de vigencia.", //Paragraph / Small
-    price: "S/ 50 mes", //Heading/X Small (20\28)
-    class:
-      "from-complementaryI to-complementaryI-gradient border-complementaryI",
-  },
-  {
-    title: "Estándar", // heading/xsmall
-    description: "Visibilidad alta.\n7 días de vigencia.", //Paragraph / Small
-    price: "S/ 75 mes", //Heading/X Small (20\28)
-    class: "from-accent to-accent-gradient border-accent",
-  },
-  {
-    title: "Premium", // heading/xsmall
-    description: "Visibilidad muy alta.\n10 días de vigencia.", //Paragraph / Small
-    price: "S/ 100 mes", //Heading/X Small (20\28)
-    class: "from-[#AFACAC] to-primary-gradient border-primary",
-  },
-];
 ---
 
 <Layout
@@ -225,48 +203,33 @@ const cards = [
     </div>
   </section>
   <!-- methods payment -->
-  <section class="flex h-[377px] my-8 lg:my-0 items-center">
+  <section class="flex lg:h-[485px] items-center">
     <div
-      class="w-full lg:h-[292px] mx-auto max-w-[1280px] flex flex-col gap-4 items-center lg:items-start justify-center bg-primary px-8 rounded-tl-[100px] rounded-bl-3xl" 
+      class="w-full lg:h-[357px] mx-auto max-w-[1280px] flex flex-col gap-4 items-center lg:items-start justify-center bg-primary px-20 rounded-tl-[100px] rounded-bl-3xl" 
     >
       <Typography variant="heading" weight="medium" color="white">
         Nuestros planes de pago
       </Typography>
       <!-- cards -->
-      <div class="flex flex-col lg:flex-row gap-4">
-        {
-          cards.map((card) => (
-            // gradiante opaco a la izquierda y entero a la derecha con ese bg-complementaryI
-            <div
-              class:list={[
-                "bg-gradient-to-bl border-2 w-[368px] h-[104px] flex flex-row rounded-xl rounded-tr-3xl p-4 gap-6",
-                card.class,
-              ]}
-            >
-              <div class="flex flex-col w-full gap-2">
-                <Typography variant="label" weight="medium" color="white">
-                  {card.title}
-                </Typography>
-                <Typography
-                  variant="paragraph"
-                  weight="xSmall"
-                  class={"text-gray-600"}
-                  color="white"
-                >
-                  {card.description}
-                </Typography>
-              </div>
-              <Typography
-                variant="heading"
-                weight="xSmall"
-                class="w-full flex flex-row justify-end"
-                color="white"
-              >
-                {card.price}
-              </Typography>
-            </div>
-          ))
-        }
+      <div class="flex flex-row flex-wrap gap-4">
+        <Image
+          src={"/src/assets/img/Básico.webp"}
+          width={346}
+          height={169}
+          alt={"Plan básico"}
+        />
+        <Image
+          src={"/src/assets/img/Estándar.webp"}
+          width={346}
+          height={169}
+          alt={"Plan básico"}
+        />
+        <Image
+          src={"/src/assets/img/Premium.webp"}
+          width={346}
+          height={169}
+          alt={"Plan básico"}
+        />
       </div>
     </div>
   </section>
