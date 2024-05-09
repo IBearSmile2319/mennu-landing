@@ -21,45 +21,49 @@ const t = useTranslations(lang);
 const translationPath = useTranslatedPath(lang);
 const linksFooter = [
   {
-    title: t("footer.useMennu"),
+    title: "Usa Mennu",
     links: [
       {
-        name: t("footer.partnersMennu"),
-        url: translationPath("/partners"),
+        name: "Negocios de comida",
+        url: translationPath("/negocios"),
       },
       {
-        name: t("footer.aboutUs"),
-        url: translationPath("/conocenos"),
+        name: "Anuncia en Mennu",
+        url: translationPath("/publicidad"),
       },
     ],
   },
   {
-    title: t("footer.knowMennu"),
+    title: "Conoce Mennu",
     links: [
       {
-        name: t("footer.aboutUs"),
+        name: "Nosotros",
         url: translationPath("/conocenos"),
       },
       {
-        name: t("footer.contactUs"),
-        url: translationPath("/contact"),
+        name: "Contáctanos",
+        url: translationPath("/conocenos#contact-form"),
       },
       {
-        name: t("footer.frequentQuestions"),
-        url: translationPath("/faq"),
+        name: "Preguntas frecuentes",
+        url: translationPath("/conocenos#acordion"),
       },
     ],
   },
   {
-    title: t("footer.ourPolicy"),
+    title: "Nuestra política",
     links: [
       {
-        name: t("footer.privacyPolicy"),
-        url: translationPath("/privacy-policy"),
+        name: "Política de privacidad",
+        url: translationPath("/politica-privacidad"),
       },
       {
-        name: t("footer.termsOfUse"),
-        url: translationPath("/terms-of-use"),
+        name: "Libro de reclamaciones",
+        url: translationPath("/politica-privacidad"),
+      },
+      {
+        name: "Términos de uso",
+        url: translationPath("/terminos-condiciones"),
       },
     ],
   },
