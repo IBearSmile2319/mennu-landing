@@ -1,14 +1,13 @@
 ---
-import Logo from "@/assets/svg/Logo.astro";
-import NombreApp from "@/assets/svg/NombreApp.astro";
-import Typography from "./ui/typography/Typography.astro";
+import LogoBig from "@/assets/svg/LogoBig.astro";
+import { MOBILE_MENU_CONTENT_ID } from "@/consts/mobile-menu";
 import {
-  getLangFromUrl,
-  useTranslatedPath,
-  useTranslations,
+getLangFromUrl,
+useTranslatedPath,
+useTranslations,
 } from "@/i18n/utils";
 import HamburgerButton from "./HamburgerButton.astro";
-import { MOBILE_MENU_CONTENT_ID } from "@/consts/mobile-menu";
+import Typography from "./ui/typography/Typography.astro";
 // remote last slash from pathname
 const { pathname } = Astro.url;
 const lang = getLangFromUrl(Astro.url);
@@ -17,19 +16,19 @@ const translationPath = useTranslatedPath(lang);
 
 const pages = [
   {
-    name: t("header.business.link"),
-    href: translationPath("/business"),
-    active: pathname.includes(translationPath("/business")),
+    name: t("header.negocios.link"),
+    href: translationPath("/negocios"),
+    active: pathname.includes(translationPath("/negocios")),
   },
   {
-    name: t("header.advertisers.link"),
-    href: translationPath("/advertisers"),
-    active: pathname.includes(translationPath("/advertisers")),
+    name: t("header.publicidad.link"),
+    href: translationPath("/publicidad"),
+    active: pathname.includes(translationPath("/publicidad")),
   },
   {
-    name: t("header.about.link"),
-    href: translationPath("/about"),
-    active: pathname.includes(translationPath("/about")),
+    name: t("header.conocenos.link"),
+    href: translationPath("/conocenos"),
+    active: pathname.includes(translationPath("/conocenos")),
   },
 ].map((page) => ({
   ...page,
@@ -37,13 +36,15 @@ const pages = [
 }));
 ---
 
-<header class="h-[100px] w-full bg-primary">
+<header class=" h-[64px] lg:h-[100px] w-full bg-primary">
   <nav
-    class="group flex w-full mx-auto max-w-[1280px] items-center gap-7 h-full px-4  justify-between lg:justify-normal"
+    class="group flex w-full mx-auto max-w-[1280px] items-center gap-7 h-full px-4 justify-between lg:justify-normal"
   >
     <a href="/" class="flex items-center h-[60.29px] gap-2">
-      <Logo size="60" />
-      <NombreApp />
+      <!-- <Logo size="60" class="hidden lg:block" /> -->
+      <LogoBig class="hidden lg:block"/>
+      <LogoBig h="48" w="160" class="lg:hidden"/>
+      <!-- <NombreApp /> -->
     </a>
     <!-- ocultar en mobile -->
     <ul class="items-center gap-4 h-full hidden lg:flex">
@@ -74,10 +75,51 @@ const pages = [
       class="fixed inset-0 z-[888] flex w-screen flex-col items-center overflow-x-auto bg-primary px-4 lg:hidden"
       id={MOBILE_MENU_CONTENT_ID}
     >
-    <aside class="flex min-h-16 w-full items-center justify-between h-[100px]">
-      <span class="text-xl font-semibold uppercase text-secondary">Menú</span>
-      <HamburgerButton id="innerMenuButton" />
-    </aside>
+      <aside
+        class="flex min-h-16 w-full items-center justify-between h-[64px]"
+      >
+        <a href="/" class="flex items-center h-[60.29px] gap-2">
+          <LogoBig h="48" w="160" class="lg:hidden"/>
+        </a>
+        <HamburgerButton id="innerMenuButton" />
+      </aside>
+      <!-- links -->
+      <ul class="flex flex-col gap-2 mt-8 w-full">
+        <li class="flex items-center w-full">
+          <a
+            href="/"
+            class={`flex gap-[8px] py-4 mx-4 w-full border-b border-b-[#E2E2E2]`}
+          >
+            <Typography
+              variant="label"
+              weight="large"
+              color={"white"}
+              class="font-medium"
+            >
+              Inicio
+            </Typography>
+          </a>
+        </li>
+        {
+          pages.map((page) => (
+            <li class="flex items-center w-full">
+              <a
+                href={page.href}
+                class={`flex gap-[8px] py-4 mx-4 w-full border-b border-b-[#E2E2E2]`}
+              >
+                <Typography
+                  variant="label"
+                  weight="large"
+                  color={"white"}
+                  class="font-medium"
+                >
+                  {page.name}
+                </Typography>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
     </div>
   </nav>
 </header>
@@ -99,40 +141,43 @@ const pages = [
     transition: opacity 0s;
   } */
   @media (prefers-reduced-motion) {
-		#menuMobileContent {
-			transition: opacity 0s;
-		}
-	}
+    #menuMobileContent {
+      transition: opacity 0s;
+    }
+  }
 </style>
 
 <script>
-	import { $ } from "@/lib/dom-selector"
+  import { $ } from "@/lib/dom-selector";
 
-	function toggleMenu(nav: HTMLElement | null, menuMobileContent: HTMLElement | null) {
-		menuMobileContent?.classList.toggle("open")
-		nav?.classList.toggle("open")
-		document.body.classList.toggle("overflow-hidden")
-		document.body.classList.toggle("lg:overflow-auto")
+  function toggleMenu(
+    nav: HTMLElement | null,
+    menuMobileContent: HTMLElement | null
+  ) {
+    menuMobileContent?.classList.toggle("open");
+    nav?.classList.toggle("open");
+    document.body.classList.toggle("overflow-hidden");
+    document.body.classList.toggle("lg:overflow-auto");
     // agregar la clase al html
     document.documentElement.classList.toggle("overflow-hidden");
     document.documentElement.classList.toggle("lg:overflow-auto");
-	}
+  }
 
-	document.addEventListener("astro:page-load", () => {
-		const nav = $("nav")
-		const menuButton = $("#menuButton")
-		const innerMenuButton = $("#innerMenuButton")
-		const menuMobileContext = $("#menuMobileContent")
-    
+  document.addEventListener("astro:page-load", () => {
+    const nav = $("nav");
+    const menuButton = $("#menuButton");
+    const innerMenuButton = $("#innerMenuButton");
+    const menuMobileContext = $("#menuMobileContent");
 
-		menuButton?.addEventListener("hamburgerButtonClicked", () => toggleMenu(nav, menuMobileContext))
-		innerMenuButton?.addEventListener("hamburgerButtonClicked", () =>
-			toggleMenu(nav, menuMobileContext)
-		)
+    menuButton?.addEventListener("hamburgerButtonClicked", () =>
+      toggleMenu(nav, menuMobileContext)
+    );
+    innerMenuButton?.addEventListener("hamburgerButtonClicked", () =>
+      toggleMenu(nav, menuMobileContext)
+    );
 
-		if (menuMobileContext?.classList.contains("open")) {
-			toggleMenu(nav, menuMobileContext)
-		}
-	})
+    if (menuMobileContext?.classList.contains("open")) {
+      toggleMenu(nav, menuMobileContext);
+    }
+  });
 </script>
-

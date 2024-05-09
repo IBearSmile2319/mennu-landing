@@ -5,32 +5,51 @@ import Typography from "@/components/ui/typography/Typography.astro";
 import { getLangFromUrl, useTranslations } from "@/i18n/utils";
 import Layout from "@/layouts/Layout.astro";
 import { Image } from "astro:assets";
+import qrMennuComensal from '../assets/img/qr-comensal.png'
+import homeMobileIlustration from '../assets/img/Home-App.png'
+
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
+
+// identificar si es un usuario de escritorio o movil si es android o ios
+
 ---
 
-<Layout title={t("app.home.title")} description={t("app.home.description")}>
+<Layout title={t("app.inicio.title")} description={t("app.inicio.description")}>
   <Banner
     title="Comida BARATA y BUENA cerca de ti"
     description="Come rico, come bien… menús económicos al alcance de tu bolsillo en lugares cercanos a donde te encuentres."
     textBtn="Descarga la APP"
-    url="#"
+    url={"#"}
+    redirectStoresComensal
     imgs={[
       {
         alt: "Comida BARATA y BUENA cerca de ti",
         width: 435,
         height: 544,
         src: "/img/home-banner.webp",
+        widthMobile: 328,
+        heightMobile: 316
       },
     ]}
   />
+
   <section class="flex lg:h-[706px] mb-8 lg:mb-0">
     <!-- container -->
-    <div class="w-full mx-auto max-w-[1280px] flex flex-col gap-16 items-center">
-      <Typography variant="heading" weight="medium" align="center" class="mt-14" >
+    <div
+      class="w-full mx-auto max-w-[1280px] flex flex-col gap-16 items-center"
+    >
+      <Typography
+        variant="heading"
+        weight="medium"
+        align="center"
+        class="mt-14"
+      >
         ¿Por qué usar la APP de Mennu?
       </Typography>
-      <div class="flex flex-col lg:flex-row w-full lg:h-[440px] justify-center items-center gap-8">
+      <div
+        class="flex flex-col lg:flex-row w-full lg:h-[440px] justify-center items-center gap-8"
+      >
         <!-- card 1 -->
         <div class="flex flex-col h-[440px] w-[286px] relative">
           <Image
@@ -39,11 +58,13 @@ const t = useTranslations(lang);
             height={320}
             alt={""}
             class={"z-10"}
-            />
+          />
           <!-- card text -->
           <div class="absolute bottom-0 right-0">
             <!-- 100px, 24px, 24px, 24px -->
-            <div class="flex flex-col h-[360px] w-[270px] shadow-2xl justify-end rounded-[24px] bg-white p-6 rounded-tl-[100px] shadow-[#00183415] relative items-center">
+            <div
+              class="flex flex-col h-[360px] w-[270px] shadow-2xl justify-end rounded-[24px] bg-white p-6 rounded-tl-[100px] shadow-[#00183415] relative items-center"
+            >
               <div class="flex flex-row h-20 absolute bottom-0 px-6">
                 <Typography variant="heading" weight="xSmall" align="center">
                   Precios bajos
@@ -60,11 +81,13 @@ const t = useTranslations(lang);
             height={320}
             alt={""}
             class={"z-10"}
-            />
+          />
           <!-- card text -->
           <div class="absolute bottom-0 right-0">
             <!-- 100px, 24px, 24px, 24px -->
-            <div class="flex flex-col h-[360px] w-[270px] shadow-2xl justify-end rounded-[24px] bg-white p-6 rounded-tl-[100px] shadow-[#00183415] relative items-center">
+            <div
+              class="flex flex-col h-[360px] w-[270px] shadow-2xl justify-end rounded-[24px] bg-white p-6 rounded-tl-[100px] shadow-[#00183415] relative items-center"
+            >
               <div class="flex flex-col h-20 absolute bottom-0 px-6">
                 <Typography variant="heading" weight="xSmall" align="center">
                   Restaurantes, puestos de comida y cocina en casa
@@ -73,19 +96,21 @@ const t = useTranslations(lang);
             </div>
           </div>
         </div>
-         <!-- card 3 -->
-         <div class="flex flex-col h-[440px] w-[286px] relative">
+        <!-- card 3 -->
+        <div class="flex flex-col h-[440px] w-[286px] relative">
           <Image
             src={"/img/home-ilustration-3.webp"}
             width={270}
             height={320}
             alt={""}
             class={"z-10"}
-            />
+          />
           <!-- card text -->
           <div class="absolute bottom-0 right-0">
             <!-- 100px, 24px, 24px, 24px -->
-            <div class="flex flex-col h-[360px] w-[270px] shadow-2xl rounded-[24px] bg-white p-6 rounded-tl-[100px] shadow-[#00183415] relative items-center">
+            <div
+              class="flex flex-col h-[360px] w-[270px] shadow-2xl rounded-[24px] bg-white p-6 rounded-tl-[100px] shadow-[#00183415] relative items-center"
+            >
               <div class="flex flex-col h-20 absolute bottom-0 px-6">
                 <Typography variant="heading" weight="xSmall" align="center">
                   Negocios de comida cerca de ti
@@ -113,11 +138,11 @@ const t = useTranslations(lang);
           <!-- qr y btns -->
           <div class="flex flex-row items-center gap-4">
             <Image
-              src="/img/qr-prueba.png"
+              src={qrMennuComensal}
               alt="Descarga mennu negocios"
               width={160}
               height={160}
-              class={"hidden lg:block"}
+              class={"hidden lg:block bg-white p-2"}
             />
             <ButtonsAppsStore />
           </div>
@@ -125,7 +150,7 @@ const t = useTranslations(lang);
       </div>
       <div class="w-full flex flex-col items-center justify-center">
         <Image
-          src="/img/Mobile-frame.webp"
+          src={homeMobileIlustration}
           alt="Descarga mennu negocios"
           width={478}
           height={646}

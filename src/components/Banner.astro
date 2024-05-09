@@ -1,31 +1,47 @@
 ---
 import { Image } from "astro:assets";
 import Typography from "./ui/typography/Typography.astro";
-
 interface Props {
   title: string;
   description: string;
   textBtn: string;
   url: string;
   imgs: {
+    // src: ImageMetadata;
     src: string;
     alt: string;
     width: number;
     height: number;
+    widthMobile: number;
+    heightMobile: number;
   }[];
+  redirectStoresComensal?: boolean;
+  redirectStoresNegocio?: boolean;
 }
 
-const { title, description, textBtn, url, imgs } = Astro.props;
+const {
+  title,
+  description,
+  textBtn,
+  url,
+  imgs,
+  redirectStoresComensal,
+  redirectStoresNegocio,
+} = Astro.props;
 
-const mb = imgs.length > 1 ? "mb-20" : "mb-0";
-
+const mb = imgs.length > 1 ? "mb-10 lg:mb-20" : "mb-0";
+const mt = imgs.length > 1 ? "mt-10 lg:mt-20" : "mt-0";
 ---
 
 <section class="flex lg:h-[612px] mb-4 lg:mb-0">
   <!-- container -->
-  <div class="w-full mx-auto max-w-[1280px] flex flex-col-reverse lg:flex-row">
+  <div
+    class="w-full mx-auto max-w-[1280px] flex xs:flex-col-reverse sm:flex-row lg:gap-6 gap-4"
+  >
     <!-- info container -->
-    <div class="flex flex-col justify-center w-full h-full gap-4 items-center lg:items-start px-4">
+    <div
+      class="flex flex-col justify-center w-full h-full lg:gap-6 gap-4 items-center lg:items-start px-4"
+    >
       <!-- h1 -->
       <Typography variant="heading" weight="large">
         {title}
@@ -37,6 +53,11 @@ const mb = imgs.length > 1 ? "mb-20" : "mb-0";
       <!-- button -->
       <a
         href={url}
+        id={redirectStoresComensal
+          ? "redirectStoresComensal"
+          : redirectStoresNegocio
+            ? "redirectStoreNegocio"
+            : ""}
         class={`w-[343px] h-[56px] bg-primary flex flex-row items-center justify-center `}
       >
         <Typography variant="label" weight="large" color="white" align="center">
@@ -46,20 +67,74 @@ const mb = imgs.length > 1 ? "mb-20" : "mb-0";
     </div>
     <!-- imgs rounds -->
     <div
-      class={` flex items-center ${imgs.length === 1 ? "justify-start" : "justify-center"} w-full h-full py-20 space-y-10 gap-4 flex-row-reverse`}>
+      class={`flex items-center ${imgs.length === 1 ? "justify-start" : " lg:justify-center h-[316px] mt-4 lg:mt-0"} w-full lg:h-full lg:py-20 gap-4 items-center flex-row-reverse`}
+    >
+      <!-- <div class="w-328 h-316 lg:hidden flex flex-row-reverse"> -->
       {
-        imgs.map((img) => (
-          <Image
-            src={img.src}
-            alt={img.alt}
-            width={img.width}
-            height={img.height}
-            class:list={[
-              mb
-            ]}
-          />
+        imgs.map((img, i) => (
+          <>
+            <Image
+              src={img.src}
+              alt={img.alt}
+              width={img.width}
+              height={img.height}
+              class:list={[
+                // margin bottom al segundo
+                i === 0 ? mb : "",
+                i === 1 ? mt : "",
+                "hidden lg:block",
+              ]}
+            />
+            <Image
+              src={img.src}
+              alt={img.alt}
+              width={img.widthMobile}
+              height={img.heightMobile}
+              class={""}
+              class:list={[i === 0 ? mb : "", i === 1 ? mt : "", "lg:hidden"]}
+            />
+          </>
         ))
       }
+      <!-- </div> -->
     </div>
   </div>
 </section>
+
+<script>
+  import { $ } from "@/lib/dom-selector";
+  import {
+    ANDROID_APP_URL_COMENSAL,
+    IOS_APP_URL_COMENSAL,
+    ANDROID_APP_URL_NEGOCIO,
+    IOS_APP_URL_NEGOCIO,
+  } from "@/consts/appStorePaths";
+  function toggleMenu() {
+    const isIOS = navigator.userAgent.match(/iPhone|iPad|iPod|Macintosh/i);
+    let pathComensal = "";
+    let pathNegocio = "";
+    if (isIOS) {
+      pathComensal = IOS_APP_URL_COMENSAL;
+      pathNegocio = IOS_APP_URL_NEGOCIO;
+    } else {
+      pathComensal = ANDROID_APP_URL_COMENSAL;
+      pathNegocio = ANDROID_APP_URL_NEGOCIO;
+    }
+
+    const redirectStoresComensal: URL = $("#redirectStoresComensal") as any;
+    // agregar url al href
+    if (redirectStoresComensal) {
+      redirectStoresComensal.href = pathComensal;
+    }
+
+    const redirectStoresNegocio: URL = $("#redirectStoreNegocio") as any;
+    // agregar url al href
+    if (redirectStoresNegocio) {
+      redirectStoresNegocio.href = pathNegocio;
+    }
+  }
+
+  window.addEventListener("animationend", toggleMenu);
+  window.addEventListener("DOMContentLoaded", toggleMenu);
+
+</script>

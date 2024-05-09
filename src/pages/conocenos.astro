@@ -11,30 +11,35 @@ import {
 import Banner from "@/components/Banner.astro";
 import { Image } from "astro:assets";
 import Typography from "@/components/ui/typography/Typography.astro";
+const RECAPTCHA_SITE_KEY = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
 // const route = getRouteFromUrl(Astro.url);
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 // const translatePath = useTranslatedPath(lang);
 ---
 
-<Layout title={t("app.about.title")} description={t("app.about.description")}>
+<Layout title={t("app.conocenos.title")} description={t("app.conocenos.description")}>
   <Banner
     title="Mennu es un buscador de comida barata y buena cerca del lugar donde te encuentres "
     description=""
     textBtn="Contáctanos"
-    url="#"
+    url="#contact-form"
     imgs={[
       {
         alt: "Usando mennu seras un emprendedor exitoso",
         height: 370,
         width: 240,
         src: "/img/banner-about-2.webp",
+        widthMobile: 155,
+        heightMobile: 239
       },
       {
         alt: "una mujer cocinando y emprendiendo en mennu",
         height: 370,
         width: 240,
         src: "/img/banner-about-1.webp",
+        widthMobile: 155,
+        heightMobile: 239
       },
     ]}
   />
@@ -128,6 +133,7 @@ const t = useTranslations(lang);
       </div>
       <div class="lg:h-[532px] relative lg:w-[475px]">
         <div
+        id="contact-form"
           class="border-complementaryI border-2 rounded-tr-[100px] rounded-3xl w-[475px] h-[724px] lg:absolute lg:top-[-20%] bg-secondary gap-4 p-8"
         >
           <ContactFormAbout client:load />
@@ -136,3 +142,7 @@ const t = useTranslations(lang);
     </div>
   </section>
 </Layout>
+<script is:inline
+type="text/javascript"
+src={`https://www.google.com/recaptcha/api.js?render=${RECAPTCHA_SITE_KEY}`}
+></script>

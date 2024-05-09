@@ -62,6 +62,7 @@ const ContactFormAbout = () => {
         if (validateForm()) return;
     }
     return (
+        <>
         <div class="flex flex-col relative">
             <Typography variant="heading" weight="medium"> Contáctanos </Typography>
             <form onSubmit={onSubmitNeg} class="my-4 gap-4 flex flex-col">
@@ -210,6 +211,8 @@ const ContactFormAbout = () => {
                 </button>
             </form>
         </div>
+         
+      </>
     )
 }
 

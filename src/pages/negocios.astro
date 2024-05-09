@@ -5,31 +5,39 @@ import Typography from "@/components/ui/typography/Typography.astro";
 import { getLangFromUrl, useTranslations } from "@/i18n/utils";
 import Layout from "@/layouts/Layout.astro";
 import { Image } from "astro:assets";
+import qrMennuNegocios from "../assets/img/qr-negocios.png";
+import negociosMobileIlustration from "@/assets/img/Negocios-App.png";
+const RECAPTCHA_SITE_KEY = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 ---
 
 <Layout
-  title={t("app.business.title")}
-  description={t("app.business.description")}
+  title={t("app.negocios.title")}
+  description={t("app.negocios.description")}
 >
   <Banner
     title="Sácale el jugo a tu negocio"
     description="Llenamos tu local de gente que consuma la comida que ofreces."
     textBtn="Descarga la APP"
     url="#"
+    redirectStoresNegocio
     imgs={[
       {
         alt: "Usando mennu seras un emprendedor exitoso",
         height: 370,
         width: 240,
         src: "/img/banner-business-2.webp",
+        widthMobile: 155,
+        heightMobile: 239,
       },
       {
         alt: "una mujer cocinando y emprendiendo en mennu",
         height: 370,
         width: 240,
         src: "/img/banner-business-1.webp",
+        widthMobile: 155,
+        heightMobile: 239,
       },
     ]}
   />
@@ -148,7 +156,9 @@ const t = useTranslations(lang);
             <div
               class="flex flex-col h-[303px] w-[270px] shadow-2xl justify-end rounded-[24px] bg-white p-6 rounded-tl-[100px] shadow-[#00183415] relative items-center"
             >
-              <div class="flex flex-col h-24 items-center justify-center absolute bottom-0 px-6">
+              <div
+                class="flex flex-col h-24 items-center justify-center absolute bottom-0 px-6"
+              >
                 <Typography variant="heading" weight="xSmall" align="center">
                   Planes de bajo costo
                 </Typography>
@@ -156,8 +166,10 @@ const t = useTranslations(lang);
             </div>
           </div>
         </div>
-         <!-- card 2 -->
-         <div class="flex flex-col h-[416px] w-[270px] relative items-center lg:mt-40">
+        <!-- card 2 -->
+        <div
+          class="flex flex-col h-[416px] w-[270px] relative items-center lg:mt-40"
+        >
           <Image
             src={"/img/business-ilustration-section-2.webp"}
             width={224}
@@ -169,7 +181,9 @@ const t = useTranslations(lang);
             <div
               class="flex flex-col h-[303px] w-[270px] shadow-2xl justify-end rounded-[24px] bg-white p-6 rounded-tl-[100px] shadow-[#00183415] relative items-center"
             >
-              <div class="flex flex-col  h-24 items-center justify-center absolute bottom-0 px-6">
+              <div
+                class="flex flex-col h-24 items-center justify-center absolute bottom-0 px-6"
+              >
                 <Typography variant="heading" weight="xSmall" align="center">
                   Puestos de comida
                 </Typography>
@@ -177,8 +191,8 @@ const t = useTranslations(lang);
             </div>
           </div>
         </div>
-         <!-- card 3 -->
-         <div class="flex flex-col h-[416px] w-[270px] relative items-center">
+        <!-- card 3 -->
+        <div class="flex flex-col h-[416px] w-[270px] relative items-center">
           <Image
             src={"/img/business-ilustration-section-3.webp"}
             width={224}
@@ -191,7 +205,9 @@ const t = useTranslations(lang);
             <div
               class="flex flex-col h-[303px] w-[270px] shadow-2xl justify-end rounded-[24px] bg-white p-6 rounded-br-[100px] shadow-[#00183415] relative items-center"
             >
-              <div class="flex flex-col h-24 items-center justify-center absolute bottom-0 px-6">
+              <div
+                class="flex flex-col h-24 items-center justify-center absolute bottom-0 px-6"
+              >
                 <Typography variant="heading" weight="xSmall" align="center">
                   Cocina en casa
                 </Typography>
@@ -205,7 +221,7 @@ const t = useTranslations(lang);
   <!-- methods payment -->
   <section class="flex lg:h-[485px] items-center">
     <div
-      class="w-full lg:h-[357px] mx-auto max-w-[1280px] flex flex-col gap-4 items-center lg:items-start justify-center bg-primary px-20 rounded-tl-[100px] rounded-bl-3xl" 
+      class="w-full lg:h-[357px] mx-auto max-w-[1280px] flex flex-col gap-4 items-center lg:items-start justify-center bg-primary px-20 rounded-tl-[100px] rounded-bl-3xl"
     >
       <Typography variant="heading" weight="medium" color="white">
         Nuestros planes de pago
@@ -249,10 +265,11 @@ const t = useTranslations(lang);
           <!-- qr y btns -->
           <div class="flex flex-row items-center gap-4">
             <Image
-              src="/img/qr-prueba.png"
+              src={qrMennuNegocios}
               alt="Descarga mennu negocios"
               width={160}
               height={160}
+              class={"hidden lg:block bg-white p-2"}
             />
             <ButtonsAppsStore />
           </div>
@@ -260,7 +277,7 @@ const t = useTranslations(lang);
       </div>
       <div class="w-full flex flex-col items-center justify-center">
         <Image
-          src="/img/Mobile-frame-negocios.webp"
+          src={negociosMobileIlustration}
           alt="Descarga mennu negocios"
           width={478}
           height={646}
@@ -270,3 +287,10 @@ const t = useTranslations(lang);
     </div>
   </section>
 </Layout>
+
+<script
+is:inline
+type="text/javascript"
+src={`https://www.google.com/recaptcha/api.js?render=${RECAPTCHA_SITE_KEY}`}
+></script>
+
