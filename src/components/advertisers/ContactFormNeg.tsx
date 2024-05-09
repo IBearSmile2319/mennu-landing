@@ -9,7 +9,11 @@ interface IForm {
     consulta: string
 }
 
-const ContactFormNeg = () => {
+interface Props {
+    title?: string;
+}
+
+const ContactFormNeg = ({ title='Contáctanos' }: Props) => {
     // const [recaptchaResponse, setRecaptchaResponse] = useState<null | {
     //     score: number;
     // }>(null);
@@ -84,9 +88,9 @@ const ContactFormNeg = () => {
         <>
 
             <div class="flex flex-col">
-                <Typography variant="heading" weight="medium"> Contáctanos </Typography>
+                <Typography variant="heading" weight="medium"> {title} </Typography>
                 <form onSubmit={onSubmitNeg} class="my-4 gap-4 flex flex-col">
-                    <div class="flex flex-row gap-4">
+                    <div class="flex flex-col lg:flex-row gap-4">
                         <label for="nombre" class="flex flex-col gap-1 w-full">
                             <Typography variant="label" weight="small"> Nombre </Typography>
                             <input
@@ -191,7 +195,7 @@ const ContactFormNeg = () => {
                         }
                     </label>
                     <button
-                        class="bg-primary text-white h-14 w-80 disabled:bg-[#BDBDBD] disabled:cursor-not-allowed disabled:opacity-50"
+                        class="bg-primary text-white h-14 w-full lg:w-80 disabled:bg-[#BDBDBD] disabled:cursor-not-allowed disabled:opacity-50"
                         type="submit"
                         // onClick={onSubmitNeg}
                         disabled={loading}

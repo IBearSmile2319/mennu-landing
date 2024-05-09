@@ -23,8 +23,11 @@ interface IForm {
     motivo: string;
     mensaje: string;
 }
+interface Props {
+    title?: string;
 
-const ContactFormAbout = () => {
+}
+const ContactFormAbout = ({ title='Contáctanos' }: Props) => {
     const [loading, setLoading] = useState(false);
     const [form, setForm] = useState<IForm>({
         role: "",
@@ -64,7 +67,7 @@ const ContactFormAbout = () => {
     return (
         <>
         <div class="flex flex-col relative">
-            <Typography variant="heading" weight="medium"> Contáctanos </Typography>
+            <Typography variant="heading" weight="medium"> {title} </Typography>
             <form onSubmit={onSubmitNeg} class="my-4 gap-4 flex flex-col">
                 {/* Indícanos si eres : select*/}
                 <label for="role" class="flex flex-col gap-1 ">
@@ -90,7 +93,7 @@ const ContactFormAbout = () => {
                     }
                 </label>
                 {/* nombre y apelliso: inputs */}
-                <div class="flex flex-row gap-4">
+                <div class="flex flex-col lg:flex-row gap-4">
                     <label for="nombre" class="flex flex-col gap-1 w-full">
                         <Typography variant="label" weight="small"> Nombre </Typography>
                         <input
@@ -176,7 +179,7 @@ const ContactFormAbout = () => {
                 </label>
                 {/* mensaje: textarea */}
                 <label for="mensaje" class="flex flex-col gap-1">
-                    <Typography variant="label" weight="small"> Mensaje </Typography>
+                    <Typography variant="label" weight="small"> Escribe tu mensaje o sugerencia aquí</Typography>
                     <textarea
                         id="mensaje"
                         name="mensaje"
@@ -184,7 +187,7 @@ const ContactFormAbout = () => {
                         class={`bg-[#EEEEEE] p-2 appearance-none leading-tight focus:outline-none focus:shadow-none font-hind font-normal text-sm
                         ${errors.mensaje ? "bg-[#FFEFED] border-[#F1998E]" : ""}
                         `}
-                        placeholder="Escribe tu mensaje"
+                        placeholder="Escribe el detalle de tu mensaje, consulta o sugerencia."
                         onChange={handleChange}
                     />
                     {
@@ -195,7 +198,7 @@ const ContactFormAbout = () => {
                 </label>
 
                 <button
-                    class="bg-primary text-white h-14 w-80 disabled:bg-[#BDBDBD] disabled:cursor-not-allowed disabled:opacity-50"
+                    class="bg-primary text-white h-14 w-full lg:w-80 disabled:bg-[#BDBDBD] disabled:cursor-not-allowed disabled:opacity-50"
                     type="submit"
                     // onClick={onSubmitNeg}
                     disabled={loading}
