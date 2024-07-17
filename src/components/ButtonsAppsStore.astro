@@ -4,14 +4,17 @@ import AndroidWhite from "@/assets/svg/AndroidWhite.astro";
 import AppleBlack from "@/assets/svg/AppleBlack.astro";
 import AppleWhite from "@/assets/svg/AppleWhite.astro";
 import {
-ANDROID_APP_URL_COMENSAL,
-IOS_APP_URL_COMENSAL
+  ANDROID_APP_URL_COMENSAL,
+  IOS_APP_URL_COMENSAL,
+  IOS_APP_URL_NEGOCIO,
+  ANDROID_APP_URL_NEGOCIO,
 } from "@/consts/appStorePaths";
 interface Props {
   black?: boolean;
+  negocios?: boolean;
 }
 
-const { black = false }: Props = Astro.props;
+const { black = false, negocios = false }: Props = Astro.props;
 ---
 
 <!-- logos de las playstore descargar en android y apple store responsivo tailwind-->
@@ -19,19 +22,35 @@ const { black = false }: Props = Astro.props;
   {
     black ? (
       <>
-        <a href={ANDROID_APP_URL_COMENSAL} target="_blank" rel="noreferrer">
+        <a
+          href={negocios ? ANDROID_APP_URL_NEGOCIO : ANDROID_APP_URL_COMENSAL}
+          target="_blank"
+          rel="noreferrer"
+        >
           <AndroidBlack />
         </a>
-        <a href={IOS_APP_URL_COMENSAL} target="_blank" rel="noreferrer">
+        <a
+          href={negocios ? IOS_APP_URL_NEGOCIO : IOS_APP_URL_COMENSAL}
+          target="_blank"
+          rel="noreferrer"
+        >
           <AppleBlack />
         </a>
       </>
     ) : (
       <>
-        <a href={ANDROID_APP_URL_COMENSAL} target="_blank" rel="noreferrer">
+        <a
+          href={negocios ? ANDROID_APP_URL_NEGOCIO : ANDROID_APP_URL_COMENSAL}
+          target="_blank"
+          rel="noreferrer"
+        >
           <AndroidWhite />
         </a>
-        <a href={IOS_APP_URL_COMENSAL} target="_blank" rel="noreferrer">
+        <a
+          href={negocios ? IOS_APP_URL_NEGOCIO : IOS_APP_URL_COMENSAL}
+          target="_blank"
+          rel="noreferrer"
+        >
           <AppleWhite />
         </a>
       </>

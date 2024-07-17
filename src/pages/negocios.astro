@@ -1,17 +1,37 @@
 ---
-import Banner from "@/components/Banner.astro";
 import ButtonsAppsStore from "@/components/ButtonsAppsStore.astro";
 import ContactFormNeg from "@/components/advertisers/ContactFormNeg";
 import Typography from "@/components/ui/typography/Typography.astro";
 import { getLangFromUrl, useTranslations } from "@/i18n/utils";
 import Layout from "@/layouts/Layout.astro";
-import { Image } from "astro:assets";
 import qrMennuNegocios from "../assets/img/qr-negocios.png";
-import negociosMobileIlustration from "@/assets/img/Negocios-App.png";
-import emprendedorCardImg from "../assets/img/emprendedor.png";
-import profesionalCardImg from "../assets/img/profesional.png";
-import empresarialCardImg from "../assets/img/empresarial.png";
-const RECAPTCHA_SITE_KEY = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
+
+import negociosMobileIlustration from "../assets/img/negocios/negocios-App.png";
+
+// news
+import imgBackground from "../assets/img/negocios/negocios-HERO.png";
+import imgltsOne1 from "@/assets/img/negocios/1.png";
+import imgltsOne2 from "@/assets/img/negocios/2.png";
+import imgltsOne3 from "@/assets/img/negocios/3.png";
+import imgltsOne4 from "@/assets/img/negocios/4.png";
+
+import imgltsTwo1 from "@/assets/img/negocios/plan1.png";
+import imgltsTwo2 from "@/assets/img/negocios/plan2.png";
+import imgltsTwo3 from "@/assets/img/negocios/plan3.png";
+
+import imgltsThree1 from "@/assets/img/negocios/restaurante.png";
+import imgltsThree2 from "@/assets/img/negocios/puesto.png";
+import imgltsThree3 from "@/assets/img/negocios/casa.png";
+
+import imgBackground1 from "@/assets/img/negocios/black.png";
+import imgBackground2 from "@/assets/img/negocios/blanco.png";
+
+import ButtomStores2 from "@/components/ui/buttons/ButtomStores2.astro";
+
+import { PUBLIC_RECAPTCHA_SITE_KEY } from "@/config/config";
+import BannerFormNeg from "@/components/negocios/BannerFormNeg";
+import ButtomStores from "@/components/ui/buttons/ButtomStores.astro";
+const RECAPTCHA_SITE_KEY = PUBLIC_RECAPTCHA_SITE_KEY;
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 ---
@@ -19,307 +39,398 @@ const t = useTranslations(lang);
 <Layout
   title={t("app.negocios.title")}
   description={t("app.negocios.description")}
+  negocios
 >
-  <Banner
-    title="Sácale el jugo a tu negocio"
-    description="Llenamos tu local de gente que consuma la comida que ofreces."
-    textBtn="Descarga la APP"
-    url="#"
-    redirectStoresNegocio
-    imgs={[
-      {
-        alt: "Usando mennu seras un emprendedor exitoso",
-        height: 370,
-        width: 240,
-        src: "/img/banner-business-2.webp",
-        widthMobile: 155,
-        heightMobile: 239,
-      },
-      {
-        alt: "una mujer cocinando y emprendiendo en mennu",
-        height: 370,
-        width: 240,
-        src: "/img/banner-business-1.webp",
-        widthMobile: 155,
-        heightMobile: 239,
-      },
-    ]}
-  />
-  <!-- ilustaciones 1 -->
-  <section class="flex lg:h-[598px] my-8 lg:my-0">
-    <!-- container -->
-    <div class="w-full mx-auto max-w-[1280px] flex flex-col gap-4 items-center">
+  <section class="flex lg:h-[648px] bg-white lg:bg-primary relative">
+    <div
+      class={`w-full mx-auto max-w-[1280px] flex flex-row flex-wrap gap-4 items-center justify-center relative`}
+    >
+      <div
+        class="w-full h-[760px] lg:h-full bg-cover bg-center bg-no-repeat absolute top-0"
+        style={`background-image: url(${imgBackground.src});`}
+      >
+      </div>
+      <div
+        class="flex flex-col w-full gap-4 max-w-[643px] z-0 py-4 lg:py-0 px-4 lg:px-0"
+      >
+        <div>
+          <Typography
+            variant="heading"
+            weight="xLarge"
+            color="white"
+            as="p"
+            class="lg:text-start text-center px-4 lg:p-0 text-[32px] lg:text-[36px]"
+          >
+            APROVECHA LOS<Typography
+              as="span"
+              variant="heading"
+              weight="xLarge"
+              color="vividYellow">30 DÍAS</Typography
+            >
+          </Typography>
+          <Typography
+            variant="heading"
+            weight="xxLarge"
+            color="white"
+            class="lg:text-start text-center text-[34px] lg:text-[40px]"
+          >
+            DE PRUEBA GRATIS
+          </Typography>
+        </div>
+        <Typography as="p" variant="paragraph" weight="large" color="white">
+          Aplica para<Typography
+            variant="paragraph"
+            as="span"
+            weight="large"
+            color="white"
+            class="font-bold">todo tipo de negocio</Typography
+          >de comida que se registre por primera vez en la app de Mennu
+          Negocios.
+        </Typography>
+        <Typography as="p" variant="paragraph" weight="large" color="white">
+          Disfruta de los siguientes <Typography
+            as="span"
+            variant="paragraph"
+            weight="large"
+            color="white"
+            class="font-bold">beneficios</Typography
+          >:
+        </Typography>
+        <div class="flex flex-col gap-4">
+          {
+            /* los que tienen encerrados con * se pintan en negrita font-bold son una lista y poner su marker*/
+          }
+          <ul class="list-disc text-white pl-4">
+            <li class="mb-2">
+              <Typography
+                as="p"
+                variant="paragraph"
+                weight="large"
+                color="white"
+              >
+                No <Typography
+                  as="span"
+                  variant="paragraph"
+                  weight="large"
+                  color="white"
+                  class="font-bold">pagas comisión</Typography
+                > por pedido.
+              </Typography>
+            </li>
+            <li class="mb-2">
+              <Typography
+                as="p"
+                variant="paragraph"
+                weight="large"
+                color="white"
+              >
+                Recibe el <Typography
+                  as="span"
+                  variant="paragraph"
+                  weight="large"
+                  color="white"
+                  class="font-bold">pago</Typography
+                > directamente de tu cliente.
+              </Typography>
+            </li>
+            <li class="mb-2">
+              <Typography
+                as="p"
+                variant="paragraph"
+                weight="large"
+                color="white"
+              >
+                Atiende de manera <Typography
+                  as="span"
+                  variant="paragraph"
+                  weight="large"
+                  color="white"
+                  class="font-bold">presencial, recojo y delivery</Typography
+                >.
+              </Typography>
+            </li>
+            <li class="mb-2">
+              <Typography
+                as="p"
+                variant="paragraph"
+                weight="large"
+                color="white"
+              >
+                En caso realices <Typography
+                  as="span"
+                  variant="paragraph"
+                  weight="large"
+                  color="white"
+                  class="font-bold">delivery, tú te encargas</Typography
+                > de realizar el servicio.
+              </Typography>
+            </li>
+            <li class="mb-2">
+              <Typography
+                as="p"
+                variant="paragraph"
+                weight="large"
+                color="white"
+              >
+                Contamos con una <Typography
+                  as="span"
+                  variant="paragraph"
+                  weight="large"
+                  color="white"
+                  class="font-bold">Central de Atención al Usuario</Typography
+                >.
+              </Typography>
+            </li>
+          </ul>
+        </div>
+        <div class="flex flex-col lg:flex-row gap-4">
+          <ButtomStores
+            url="#"
+            textBtn="Prueba gratis por 30 días"
+            redirectStoresNegocio
+            class="bg-white cursor-pointer"
+            textColor="primary"
+          />
+          <a
+            href="/promo-negocios"
+            class={`md:min-w-[256px] h-[48px] bg-accent border-accent border-2 flex flex-row items-center justify-center rounded cursor-pointer`}
+          >
+            <Typography
+              variant="label"
+              weight="large"
+              color="white"
+              align="center"
+            >
+              Ver video
+            </Typography>
+          </a>
+        </div>
+      </div>
+      <div
+        class="flex flex-col max-w-[397px] min-h-[516px] bg-white bg-opacity-75 rounded-2xl px-[36px] pt-[36px] z-0"
+      >
+        <BannerFormNeg client:load />
+      </div>
+    </div>
+  </section>
+  <!-- section one -->
+  <section class="flex lg:h-[476px] bg-[#F2B807] relative py-9 lg:py-0">
+    <div
+      class={`w-full mx-auto max-w-[1280px] flex flex-col gap-9 items-center justify-center lg:justify-around relative`}
+    >
       <Typography
         variant="heading"
-        weight="medium"
+        weight="xLarge"
+        color="white"
         align="center"
-        class="lg:mt-14 mx-4"
+        as="h2"
       >
         ¿Por qué ser parte de Mennu?
       </Typography>
       <div
-        class="flex flex-col lg:flex-row w-full lg:h-[440px] justify-center items-center gap-8"
+        class="flex flex-row flex-wrap justify-center gap-9 lg:justify-between w-full"
       >
-        <!-- card 1 -->
-        <div class="flex flex-col h-[440px] w-[286px] relative">
-          <Image
-            src={"/img/business-ilustration-1.webp"}
-            width={270}
-            height={320}
-            alt={""}
-            class={"z-10"}
-          />
-          <!-- card text -->
-          <div class="absolute bottom-0 right-0">
-            <!-- 100px, 24px, 24px, 24px -->
-            <div
-              class="flex flex-col h-[360px] w-[270px] shadow-2xl justify-end rounded-[24px] bg-white p-6 rounded-tl-[100px] shadow-[#00183415] relative items-center"
-            >
-              <div class="flex flex-row h-20 absolute bottom-0 px-6">
-                <Typography variant="heading" weight="xSmall" align="center">
-                  Incrementa tus ventas
-                </Typography>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- card 2 -->
-        <div class="flex flex-col h-[440px] w-[286px] relative">
-          <Image
-            src={"/img/business-ilustration-2.webp"}
-            width={270}
-            height={320}
-            alt={""}
-            class={"z-10"}
-          />
-          <!-- card text -->
-          <div class="absolute bottom-0 right-0">
-            <!-- 100px, 24px, 24px, 24px -->
-            <div
-              class="flex flex-col h-[360px] w-[270px] shadow-2xl justify-end rounded-[24px] bg-white p-6 rounded-tl-[100px] shadow-[#00183415] relative items-center"
-            >
-              <div class="flex flex-col h-20 absolute bottom-0 px-6">
-                <Typography variant="heading" weight="xSmall" align="center">
-                  Restaurantes
-                </Typography>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- card 3 -->
-        <div class="flex flex-col h-[440px] w-[286px] relative">
-          <Image
-            src={"/img/business-ilustration-3.webp"}
-            width={270}
-            height={320}
-            alt={""}
-            class={"z-10"}
-          />
-          <!-- card text -->
-          <div class="absolute bottom-0 right-0">
-            <!-- 100px, 24px, 24px, 24px -->
-            <div
-              class="flex flex-col h-[360px] w-[270px] shadow-2xl rounded-[24px] bg-white p-6 rounded-tl-[100px] shadow-[#00183415] relative items-center"
-            >
-              <div class="flex flex-col h-20 absolute bottom-0 px-6">
-                <Typography variant="heading" weight="xSmall" align="center">
-                  Es masivo y popular
-                </Typography>
-              </div>
-            </div>
-          </div>
-        </div>
+        <img src={imgltsOne1.src} alt="Mennu" width={220} height={240} />
+
+        <img src={imgltsOne2.src} alt="Mennu" width={220} height={240} />
+
+        <img src={imgltsOne3.src} alt="Mennu" width={220} height={240} />
+
+        <img src={imgltsOne4.src} alt="Mennu" width={220} height={240} />
       </div>
     </div>
   </section>
-  <!-- ilustaciones 2 -->
-  <section class="flex lg:h-[611px] my-8 lg:my-0">
-    <!-- container -->
+  <!-- section two -->
+  <section class="flex lg:h-[516px] bg-primary relative py-9 lg:py-0">
     <div
-      class="w-full mx-auto max-w-[1280px] flex flex-col gap-8 lg:gap-4 items-center"
+      class="w-full h-full bg-cover bg-center bg-no-repeat absolute top-0"
+      style={`background-image: url(${imgBackground1.src});`}
+    >
+    </div>
+    <div
+      class={`w-full mx-auto max-w-[1280px] flex flex-col items-center gap-9 justify-center lg:justify-around relative`}
     >
       <Typography
         variant="heading"
-        weight="medium"
+        weight="xLarge"
+        color="white"
         align="center"
-        class="lg:mt-14 mt-4 mx-4"
+        as="h2"
       >
-        ¿Quiénes pueden ser parte de Mennu?
+        Planes de pago fijos mensuales
       </Typography>
       <div
-        class="flex flex-col lg:flex-row w-full lg:h-[423px] justify-center items-center gap-8"
+        class="flex flex-row flex-wrap justify-center lg:justify-between w-full gap-4"
       >
-        <!-- card 1 -->
-        <div
-          class="flex flex-col h-[319px] lg:h-[416px] w-[270px] relative items-center"
-        >
-          <Image
-            src={"/img/business-ilustration-section-1.webp"}
-            width={224}
-            height={224}
-            alt={""}
-            class={"z-10"}
-          />
-          <div class="absolute top-4 right-0">
-            <div
-              class="flex flex-col h-[303px] w-[270px] shadow-2xl justify-end rounded-[24px] bg-white p-6 rounded-tl-[100px] shadow-[#00183415] relative items-center"
-            >
-              <div
-                class="flex flex-col h-24 items-center justify-center absolute bottom-0 px-6"
-              >
-                <Typography variant="heading" weight="xSmall" align="center">
-                  Planes de bajo costo
-                </Typography>
-              </div>
-            </div>
-          </div>
+        <div class="flex flex-col h-[280px] justify-around">
+          <img src={imgltsTwo1.src} alt="Mennu" width={299} height={173} />
+          <Typography
+            variant="heading"
+            weight="large"
+            color="white"
+            align="center"
+          >
+            Emprendedor
+          </Typography>
         </div>
-        <!-- card 2 -->
-        <div
-          class="flex flex-col h-[319px] lg:h-[416px] w-[270px] relative items-center lg:mt-40"
-        >
-          <Image
-            src={"/img/business-ilustration-section-2.webp"}
-            width={224}
-            height={224}
-            alt={""}
-            class={"z-10"}
-          />
-          <div class="absolute top-4 right-0">
-            <div
-              class="flex flex-col h-[303px] w-[270px] shadow-2xl justify-end rounded-[24px] bg-white p-6 rounded-tl-[100px] shadow-[#00183415] relative items-center"
-            >
-              <div
-                class="flex flex-col h-24 items-center justify-center absolute bottom-0 px-6"
-              >
-                <Typography variant="heading" weight="xSmall" align="center">
-                  Puestos de comida
-                </Typography>
-              </div>
-            </div>
-          </div>
+
+        <div class="flex flex-col h-[280px] justify-around">
+          <img src={imgltsTwo2.src} alt="Mennu" width={299} height={173} />
+          <Typography
+            variant="heading"
+            weight="large"
+            color="white"
+            align="center"
+          >
+            Profesional
+          </Typography>
         </div>
-        <!-- card 3 -->
-        <div
-          class="flex flex-col h-[319px] lg:h-[416px] w-[270px] relative items-center"
-        >
-          <Image
-            src={"/img/business-ilustration-section-3.webp"}
-            width={224}
-            height={224}
-            alt={""}
-            class={"z-10"}
-          />
-          <div class="absolute top-4 right-0">
-            <!-- 100px, 24px, 24px, 24px -->
-            <div
-              class="flex flex-col h-[303px] w-[270px] shadow-2xl justify-end rounded-[24px] bg-white p-6 rounded-br-[100px] shadow-[#00183415] relative items-center"
-            >
-              <div
-                class="flex flex-col h-24 items-center justify-center absolute bottom-0 px-6"
-              >
-                <Typography variant="heading" weight="xSmall" align="center">
-                  Cocina en casa
-                </Typography>
-              </div>
-            </div>
-          </div>
+
+        <div class="flex flex-col h-[280px] justify-around">
+          <img src={imgltsTwo3.src} alt="Mennu" width={299} height={173} />
+          <Typography
+            variant="heading"
+            weight="large"
+            color="white"
+            align="center"
+          >
+            Empresarial
+          </Typography>
         </div>
       </div>
     </div>
   </section>
-  <!-- methods payment -->
-  <section class="flex lg:h-[888px] items-center my-8 lg:my-0">
+  <!-- section three -->
+  <section class="flex lg:h-[516px] bg-primary relative py-9 lg:py-0">
     <div
-      class="sm:w-full lg:h-[760px] xs:w-[344px] items-center justify-center lg:justify-normal mx-auto max-w-[1280px] flex flex-col gap-4 lg:items-start bg-primary lg:px-16 py-8 rounded-tl-[100px] rounded-bl-3xl"
+      class="w-full h-full bg-cover bg-center bg-no-repeat absolute top-0"
+      style={`background-image: url(${imgBackground2.src});`}
     >
-      <Typography variant="heading" weight="medium" color="white" class="xs:mt-8 sm:mt-0">
-        Nuestros planes de pago
+    </div>
+    <div
+      class={`w-full mx-auto max-w-[1280px] flex flex-col items-center gap-9 justify-center lg:justify-around relative`}
+    >
+      <Typography variant="heading" weight="xLarge" align="center" as="h2">
+        ¿Quiénes pueden ser parte de Mennu?
       </Typography>
-      <!-- contenido de payments y contacto -->
-      <div class="flex flex-row flex-wrap justify-center lg:justify-normal gap-4 lg:gap-8">
-        <div class="flex flex-col gap-4">
-          <Image
-            src={emprendedorCardImg}
-            width={370}
-            height={170}
-            alt={"Plan emprendedor"}
-            class="hidden lg:block"
-          />
-          <Image
-            src={emprendedorCardImg}
-            width={312}
-            height={170}
-            alt={"Plan emprendedor"}
-            class="lg:hidden"
-          />
-          <Image
-            src={profesionalCardImg}
-            width={370}
-            height={170}
-            alt={"Plan profesional"}
-            class="hidden lg:block"
-          />
-          <Image
-          src={profesionalCardImg}
-          width={312}
-          height={170}
-          alt={"Plan emprendedor"}
-          class="lg:hidden"
-        />
-          <Image
-            src={empresarialCardImg}
-            width={370}
-            height={170}
-            alt={"Plan empresarial"}
-            class="hidden lg:block"
-          />
-          <Image
-          src={empresarialCardImg}
-          width={312}
-          height={170}
-          alt={"Plan emprendedor"}
-          class="lg:hidden"
-        />
-        </div>
-        <!-- formulario -->
+      <div
+        class="flex flex-row flex-wrap justify-center lg:justify-around w-full gap-4"
+      >
         <div
-          class="bg-secondary overflow-hidden w-[312px] lg:w-[686px] border-2 border-accent rounded-3xl rounded-tr-[100px] pt-8 px-4 lg:px-20"
+          class="flex w-[220px] flex-col h-[280px] justify-center gap-4 items-center"
         >
-          <ContactFormNeg title="Contáctanos y adquiere el plan para ti" client:load />
+          <img src={imgltsThree1.src} alt="Mennu" width={160} height={160} />
+          <Typography
+            variant="heading"
+            weight="large"
+            align="center"
+            class="h-20"
+          >
+            Restaurantes
+          </Typography>
         </div>
+
+        <div
+          class="flex w-[220px] flex-col h-[280px] justify-center gap-4 items-center"
+        >
+          <img src={imgltsThree2.src} alt="Mennu" width={160} height={160} />
+          <Typography
+            variant="heading"
+            weight="large"
+            align="center"
+            class="h-20"
+          >
+            Puestos de comida
+          </Typography>
+        </div>
+
+        <div
+          class="flex w-[220px] flex-col h-[280px] justify-center gap-4 items-center"
+        >
+          <img src={imgltsThree3.src} alt="Mennu" width={160} height={160} />
+          <Typography
+            variant="heading"
+            weight="large"
+            align="center"
+            class="h-20"
+          >
+            Cocinas en casa
+          </Typography>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="flex lg:h-[48px] relative py-9 lg:py-0">
+    <div
+      class={`w-full mx-auto max-w-[1280px] flex flex-row flex-wrap items-center gap-9 justify-center lg:justify-around relative`}
+    >
+      <div class="flex flex-col lg:flex-row gap-4">
+        <ButtomStores2
+          url="#"
+          textBtn="Prueba gratis por 30 días"
+          redirectStoresNegocio
+          
+        />
+        <a
+          href="/promo-negocios"
+          class={`min-w-[256px] h-[48px] bg-accent border-accent border-2 flex flex-row items-center justify-center rounded cursor-pointer`}
+        >
+          <Typography
+            variant="label"
+            weight="large"
+            color="white"
+            align="center"
+          >
+            Ver video
+          </Typography>
+        </a>
       </div>
     </div>
   </section>
   <!-- ilustration download app -->
-  <section class="flex lg:h-[725px] mb-8 lg:mb-0 items-center">
+  <section class="flex lg:h-[725px] mb-8 lg:mb-0 items-center relative">
+    <div 
+      class="hidden lg:flex absolute h-[504px] w-1/2 bg-primary left-0 mx-auto z-0"
+    />
     <div
-      class="w-full lg:h-[504px] mx-auto max-w-[1280px] p-4 lg:p-0 flex flex-col lg:flex-row bg-primary rounded-tr-3xl rounded-br-[100px]"
+      class="w-full lg:h-[504px] mx-auto max-w-[1280px] p-4 z-10 lg:p-0 flex flex-col lg:flex-row bg-primary rounded-tr-3xl rounded-br-[100px]"
     >
       <div class="w-full flex flex-col lg:items-center lg:justify-center">
         <div class="gap-4 flex flex-col">
           <Typography variant="heading" weight="large" color="white">
-            Descarga Mennu Negocios
+            Descarga la app Mennu Negocios
           </Typography>
-          <Typography variant="paragraph" weight="medium" color="white">
-            Consigue nuevos clientes y aumenta tus ventas
+          <Typography variant="paragraph" weight="medium" color="vividYellow">
+            Haz que todos conozcan tu negocio de comida
           </Typography>
           <!-- qr y btns -->
           <div class="flex flex-row items-center gap-4">
-            <Image
-              src={qrMennuNegocios}
+            <img
+              src={qrMennuNegocios.src}
               alt="Descarga App Mennu Negocios"
               width={160}
               height={160}
               class={"hidden lg:block bg-white p-2"}
             />
-            <ButtonsAppsStore />
+            <div
+              class="flex flex-col gap-4 items-center m-auto lg:m-0 lg:items-start"
+            >
+              <Typography
+                variant="paragraph"
+                weight="medium"
+                color="white"
+                class="hidden lg:block"
+              >
+                Escanea el código QR con la cámara de tu celular.
+              </Typography>
+              <ButtonsAppsStore negocios />
+            </div>
           </div>
         </div>
       </div>
       <div class="w-full flex flex-col items-center justify-center">
-        <Image
-          src={negociosMobileIlustration}
+        <img
+          src={negociosMobileIlustration.src}
           alt="Descarga App Mennu Negocios"
           width={478}
           height={646}

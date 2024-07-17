@@ -7,9 +7,10 @@ import Footer from "@/components/Footer.astro";
 interface Props {
   title: string;
   description?: string;
+  negocios?: boolean;
 }
 
-const { title, description } = Astro.props;
+const { title, description, negocios=false } = Astro.props;
 
 const { currentLocale } = Astro;
 ---
@@ -24,8 +25,27 @@ const { currentLocale } = Astro;
     <meta name="generator" content={Astro.generator} />
     <link rel="preload" href={hind} as="font" type="font/woff2" crossorigin />
     <title>{title}</title>
-    
     <ViewTransitions />
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-1FPR4Z1F77"
+    ></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+    </script>
+    <script is:inline>
+      document.addEventListener(
+        "astro:page-load",
+        () => {
+          console.log("Enabling Google Analytics");
+          gtag("js", new Date());
+          gtag("config", "G-1FPR4Z1F77");
+        },
+        { once: false }
+      );
+    </script>
   </head>
   <body
     class="overflow-x-hidden selection:bg-primary selection:text-secondary [&_:focus-visible]:outline-none [&_:focus-visible]:ring-2 [&_:focus-visible]:ring-primary overflow-hidden"
@@ -36,16 +56,16 @@ const { currentLocale } = Astro;
 			id="main-content"
 		> -->
     <slot />
-    <Footer />
+    <Footer negocios={negocios}/>
     <!-- </div> -->
     <style is:global>
       :root {
         --color-primary: #000000;
         --color-secondary: #ffffff;
         --color-accent: #276ef1;
-        --color-accent-gradient: #C2D8FFD8;
+        --color-accent-gradient: #c2d8ffd8;
         --color-complementaryI: #74e918;
-        --color-complementaryI-gradient: #D4FCB6;
+        --color-complementaryI-gradient: #d4fcb6;
         --color-complementaryII: #f72c25;
         --font-family-Hind: "Hind", system-ui, sans-serif;
         --background-color: #141800;
@@ -64,7 +84,6 @@ const { currentLocale } = Astro;
         /* &:has(dialog[open]) {
           overflow: hidden;
         }, */
-        
       }
 
       /* Hiding class, making content visible only to screen readers but not visually */

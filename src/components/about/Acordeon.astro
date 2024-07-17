@@ -21,7 +21,7 @@ const { title, details, active } = Astro.props;
     aria-expanded={active ? "true" : "false"}
     aria-controls={`${title} accordion menu content`}
   >
-    <Typography variant="label" weight="large">
+    <Typography variant="label" weight="large" class="font-semibold">
       {title}
     </Typography>
 

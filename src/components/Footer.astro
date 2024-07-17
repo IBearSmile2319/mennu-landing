@@ -15,6 +15,14 @@ import {
   useTranslations,
 } from "@/i18n/utils";
 import ButtonsAppsStore from "./ButtonsAppsStore.astro";
+import Youtube from "@/assets/svg/Youtube.astro";
+
+interface Props{
+  negocios?: boolean;
+}
+
+const { negocios = false}  = Astro.props;
+
 // remote last slash from pathname
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -42,11 +50,11 @@ const linksFooter = [
       },
       {
         name: "Contáctanos",
-        url: translationPath("/conocenos#contact-form"),
+        url: translationPath("/conocenos/#contact-form"),
       },
       {
         name: "Preguntas frecuentes",
-        url: translationPath("/conocenos#acordion"),
+        url: translationPath("/conocenos/#acordion"),
       },
     ],
   },
@@ -59,7 +67,7 @@ const linksFooter = [
       },
       {
         name: "Libro de reclamaciones",
-        url: translationPath("/politica-privacidad"),
+        url: "https://forms.gle/ssdecb1yFcti5vWH9 ",
       },
       {
         name: "Términos de uso",
@@ -81,7 +89,8 @@ const linksFooter = [
         <ul class="flex flex-row gap-2 mt-2">
           <li class="flex items center gap-2">
             <a
-              href="#"
+              href="https://www.facebook.com/mennu.peru/"
+              target="_blank"
               class="w-[40px] h-[40px] flex items-center justify-center"
             >
               <Facebook />
@@ -89,25 +98,8 @@ const linksFooter = [
           </li>
           <li class="flex items center gap-2">
             <a
-              href="#"
-              class="w-[40px] h-[40px] flex items-center justify-center"
-            >
-              <Linkedin />
-            </a>
-          </li>
-          <li class="flex items center gap-2">
-            <a
-              href="#"
-              class="w-[40px] h-[40px] flex items-center justify-center"
-            >
-              <Tiktok />
-            </a>
-          </li>
-        </ul>
-        <ul class="flex flex-row gap-2">
-          <li class="flex items center gap-2">
-            <a
-              href="#"
+              href="https://www.instagram.com/mennu.app/"
+              target="_blank"
               class="w-[40px] h-[40px] flex items-center justify-center"
             >
               <Instagram />
@@ -115,20 +107,42 @@ const linksFooter = [
           </li>
           <li class="flex items center gap-2">
             <a
-              href="#"
+              href="https://www.tiktok.com/@mennu.app"
+              target="_blank"
               class="w-[40px] h-[40px] flex items-center justify-center"
             >
-              <Whatsapp />
+              <Tiktok />
+            </a>
+          </li>
+        </ul>
+        <ul class="flex flex-row gap-2">
+         
+          <li class="flex items center gap-2">
+            <a
+            href="https://www.linkedin.com/company/mennu-app"
+            target="_blank"
+              class="w-[40px] h-[40px] flex items-center justify-center"
+            >
+              <Linkedin />
             </a>
           </li>
           <li class="flex items center gap-2">
+            <a
+              href="https://www.youtube.com/channel/UCLOCv8AX_iFsrrlLV0o7gJw"
+              target="_blank"
+              class="w-[40px] h-[40px] flex items-center justify-center"
+            >
+              <Youtube />
+            </a>
+          </li>
+          <!-- <li class="flex items center gap-2">
             <a
               href="#"
               class="w-[40px] h-[40px] flex items-center justify-center"
             >
               <Correo />
             </a>
-          </li>
+          </li> -->
         </ul>
       </div>
       <!-- links  -->
@@ -160,7 +174,7 @@ const linksFooter = [
         }
         </div>
         <div>
-          <ButtonsAppsStore black/>
+          <ButtonsAppsStore black negocios={negocios}/>
         </div>
       </div>
     </div>

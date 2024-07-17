@@ -1,0 +1,75 @@
+---
+import type { TTypographyProps } from "../typography/types";
+import Typography from "../typography/Typography.astro";
+
+interface Props {
+  textBtn: string;
+  url: string;
+  redirectStoresComensal?: boolean;
+  redirectStoresNegocio?: boolean;
+  class?: string;
+  textColor?: TTypographyProps["color"];
+}
+
+const { textBtn, url, redirectStoresComensal, redirectStoresNegocio, class: className, textColor="white" } = Astro.props;
+
+// cambiar el numero del id para que no se repita
+const idNegocio = `redirectStoreNegocio1`;
+const idComensal = `redirectStoresComensal1`;
+
+---
+
+<!-- button -->
+  <!-- id={redirectStoresComensal
+    ? "redirectStoresComensal2"
+    : redirectStoresNegocio
+      ? "redirectStoreNegocio2"
+      : ""} -->
+<a
+  href={url}
+  id={redirectStoresComensal ? idComensal : redirectStoresNegocio ? idNegocio : ""}
+  class={`md:min-w-[256px] h-[48px] bg-primary flex flex-row items-center justify-center rounded ${className}`}
+>
+  <Typography variant="label" weight="large" color={textColor} align="center">
+    {textBtn}
+  </Typography>
+</a>
+<script>
+  import { $ } from "@/lib/dom-selector";
+  import {
+    ANDROID_APP_URL_COMENSAL,
+    IOS_APP_URL_COMENSAL,
+    ANDROID_APP_URL_NEGOCIO,
+    IOS_APP_URL_NEGOCIO,
+  } from "@/consts/appStorePaths";
+  function toggleMenu() {
+    const isIOS = navigator.userAgent.match(/iPhone|iPad|iPod|Macintosh/i);
+    let pathComensal = "";
+    let pathNegocio = "";
+    if (isIOS) {
+      pathComensal = IOS_APP_URL_COMENSAL;
+      pathNegocio = IOS_APP_URL_NEGOCIO;
+    } else {
+      pathComensal = ANDROID_APP_URL_COMENSAL;
+      pathNegocio = ANDROID_APP_URL_NEGOCIO;
+    }
+
+    const redirectStoresComensal: URL = $("#redirectStoresComensal1") as any;
+    // agregar url al href
+    if (redirectStoresComensal) {
+      redirectStoresComensal.href = pathComensal;
+    }
+
+    const redirectStoresNegocio: URL = $("#redirectStoreNegocio1") as any;
+    // agregar url al href
+    if (redirectStoresNegocio) {
+      redirectStoresNegocio.href = pathNegocio;
+    }
+  }
+
+  // ejecutar al cargar la pagina y al finalizar la animacion solo funciona para google chrome
+  window.addEventListener("animationend", toggleMenu);
+  window.addEventListener("DOMContentLoaded", toggleMenu);
+
+  document.addEventListener("astro:page-load", toggleMenu);
+</script>

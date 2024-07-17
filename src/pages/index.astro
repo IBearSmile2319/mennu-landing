@@ -1,162 +1,389 @@
 ---
-import Banner from "@/components/Banner.astro";
 import ButtonsAppsStore from "@/components/ButtonsAppsStore.astro";
 import Typography from "@/components/ui/typography/Typography.astro";
 import { getLangFromUrl, useTranslations } from "@/i18n/utils";
 import Layout from "@/layouts/Layout.astro";
-import { Image } from "astro:assets";
-import qrMennuComensal from '../assets/img/qr-comensal.png'
-import homeMobileIlustration from '../assets/img/Home-App.png'
+import homeMobileIlustration from "../assets/img/home/cliente.png";
+import qrMennuComensal from "../assets/img/qr-comensal.png";
+import imgBackground from "../assets/img/home/bg-clientes.png";
+import BannerTwo from "@/components/BannerTwo.astro";
+
+// imgs hasta el 8
+import imgHero1 from "@/assets/img/home/1.png";
+import imgHero2 from "@/assets/img/home/2.png";
+import imgHero3 from "@/assets/img/home/3.png";
+import imgHero4 from "@/assets/img/home/4.png";
+import imgHero5 from "@/assets/img/home/5.png";
+import imgHero6 from "@/assets/img/home/6.png";
+import imgHero7 from "@/assets/img/home/7.png";
+import imgHero8 from "@/assets/img/home/8.png";
+import ButtomStores from "@/components/ui/buttons/ButtomStores.astro";
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
 // identificar si es un usuario de escritorio o movil si es android o ios
-
 ---
 
 <Layout title={t("app.inicio.title")} description={t("app.inicio.description")}>
-  <Banner
-    title="Comida BARATA y BUENA cerca de ti"
-    description="Come rico, come bien… menús económicos al alcance de tu bolsillo en lugares cercanos a donde te encuentres."
-    textBtn="Descarga la APP"
-    url={"#"}
-    redirectStoresComensal
-    imgs={[
-      {
-        alt: "Comida BARATA y BUENA cerca de ti",
-        width: 435,
-        height: 544,
-        src: "/img/home-banner.webp",
-        widthMobile: 328,
-        heightMobile: 316
-      },
-    ]}
-  />
-
-  <section class="flex lg:h-[706px] mb-8 lg:mb-0">
-    <!-- container -->
+  <section class="flex lg:h-[648px] bg-white lg:bg-primary relative">
     <div
-      class="w-full mx-auto max-w-[1280px] flex flex-col gap-16 items-center"
+      class={`w-full mx-auto max-w-[1280px] flex flex-row flex-wrap gap-4 items-center justify-start relative`}
     >
-      <Typography
-        variant="heading"
-        weight="medium"
-        align="center"
-        class="mt-14"
-      >
-        ¿Por qué usar la APP de Mennu?
-      </Typography>
       <div
-        class="flex flex-col lg:flex-row w-full lg:h-[440px] justify-center items-center gap-8"
+        class="w-full h-[760px] lg:h-full bg-cover bg-center bg-no-repeat absolute top-0"
+        style={`background-image: url(${imgBackground.src});`}
       >
-        <!-- card 1 -->
-        <div class="flex flex-col h-[440px] w-[286px] relative">
-          <Image
-            src={"/img/home-ilustration-1.webp"}
-            width={270}
-            height={320}
-            alt={""}
-            class={"z-10"}
-          />
-          <!-- card text -->
-          <div class="absolute bottom-0 right-0">
-            <!-- 100px, 24px, 24px, 24px -->
-            <div
-              class="flex flex-col h-[360px] w-[270px] shadow-2xl justify-end rounded-[24px] bg-white p-6 rounded-tl-[100px] shadow-[#00183415] relative items-center"
+      </div>
+      <div
+        class="flex flex-col gap-4 max-w-[605px] z-0 py-4 lg:py-0 px-4 lg:pl-16"
+      >
+        <div>
+          <Typography
+            variant="heading"
+            weight="xxLarge"
+            color="darkPink"
+            as="p"
+            class="lg:text-start text-center text-[32px] lg:text-[40x]"
+          >
+            LLEGÓ <Typography
+              as="span"
+              variant="heading"
+              weight="xxLarge"
+              color="white">MENNU</Typography
             >
-              <div class="flex flex-row h-20 absolute bottom-0 px-6">
-                <Typography variant="heading" weight="xSmall" align="center">
-                  Precios bajos
-                </Typography>
-              </div>
-            </div>
-          </div>
+          </Typography>
+          <Typography
+            variant="heading"
+            weight="small"
+            color="vividYellow"
+            class="lg:text-start text-center text-[24px]"
+          >
+            TU BUSCADOR DE COMIDA
+          </Typography>
         </div>
-        <!-- card 2 -->
-        <div class="flex flex-col h-[440px] w-[286px] relative">
-          <Image
-            src={"/img/home-ilustration-2.webp"}
-            width={270}
-            height={320}
-            alt={""}
-            class={"z-10"}
-          />
-          <!-- card text -->
-          <div class="absolute bottom-0 right-0">
-            <!-- 100px, 24px, 24px, 24px -->
-            <div
-              class="flex flex-col h-[360px] w-[270px] shadow-2xl justify-end rounded-[24px] bg-white p-6 rounded-tl-[100px] shadow-[#00183415] relative items-center"
-            >
-              <div class="flex flex-col h-20 absolute bottom-0 px-6">
-                <Typography variant="heading" weight="xSmall" align="center">
-                  Restaurantes, puestos de comida y cocina en casa
-                </Typography>
-              </div>
-            </div>
-          </div>
+        <Typography as="p" variant="paragraph" weight="large" color="white">
+          Con la App de Mennu Clientes <Typography
+            variant="paragraph"
+            as="span"
+            weight="large"
+            color="white"
+            class="font-bold">podrás encontrar todo tipo de comida</Typography
+          >cerca al lugar de donde te encuentres.
+        </Typography>
+        <Typography as="p" variant="paragraph" weight="large" color="white">
+          ¿Por qué utilizar Mennu?
+        </Typography>
+        <div class="flex flex-col gap-4">
+          <!-- 
+          Encontrarás *restaurantes*, *puestos de comida* y *cocinas en casa*.
+Podrás elegir entre atención *presencial*, *recojo* o *delivery*.
+Filtrarás los resultados de tu búsqueda por *precio*, *distancia* o *calificación*.
+*Puedes ver la comida que ofrece* el negocio ese día. 
+-->
+          {
+            /* los que tienen encerrados con * se pintan en negrita font-bold son una lista y poner su marker*/
+          }
+          <ul class="list-disc text-white pl-4">
+            <!-- <li class="mb-2">
+              <Typography
+                as="p"
+                variant="paragraph"
+                weight="large"
+                color="white"
+              >
+                No <Typography
+                  as="span"
+                  variant="paragraph"
+                  weight="large"
+                  color="white"
+                  class="font-bold">pagas comisión</Typography
+                > por pedido.
+              </Typography>
+            </li> -->
+            <li class="mb-2">
+              <Typography
+                as="p"
+                variant="paragraph"
+                weight="large"
+                color="white"
+              >
+                Encontrarás <Typography
+                  as="span"
+                  variant="paragraph"
+                  weight="large"
+                  color="white"
+                  class="font-bold"
+                >
+                  restaurantes
+                </Typography>, <Typography
+                  as="span"
+                  variant="paragraph"
+                  weight="large"
+                  color="white"
+                  class="font-bold"
+                >
+                  puestos de comida
+                </Typography> y <Typography
+                  as="span"
+                  variant="paragraph"
+                  weight="large"
+                  color="white"
+                  class="font-bold"
+                >
+                  cocinas en casa
+                </Typography>.
+              </Typography>
+
+            </li>
+
+            <li class="mb-2">
+              <Typography
+                as="p"
+                variant="paragraph"
+                weight="large"
+                color="white"
+              >
+                Podrás elegir entre atención <Typography
+                  as="span"
+                  variant="paragraph"
+                  weight="large"
+                  color="white"
+                  class="font-bold"
+                >
+                  presencial
+                </Typography>, <Typography
+                  as="span"
+                  variant="paragraph"
+                  weight="large"
+                  color="white"
+                  class="font-bold"
+                >
+                  recojo
+                </Typography> o <Typography
+                  as="span"
+                  variant="paragraph"
+                  weight="large"
+                  color="white"
+                  class="font-bold"
+                >
+                  delivery
+                </Typography>.
+              </Typography>
+
+            </li>
+
+            <li class="mb-2">
+              <Typography
+                as="p"
+                variant="paragraph"
+                weight="large"
+                color="white"
+              >
+                Filtrarás los resultados de tu búsqueda por <Typography
+                  as="span"
+                  variant="paragraph"
+                  weight="large"
+                  color="white"
+                  class="font-bold"
+                >
+                  precio
+                </Typography>, <Typography
+                  as="span"
+                  variant="paragraph"
+                  weight="large"
+                  color="white"
+                  class="font-bold"
+                >
+                  distancia
+                </Typography> o <Typography
+                  as="span"
+                  variant="paragraph"
+                  weight="large"
+                  color="white"
+                  class="font-bold"
+                >
+                  calificación
+                </Typography>.
+              </Typography>
+
+            </li>
+
+            <li class="mb-2">
+              <Typography
+                as="p"
+                variant="paragraph"
+                weight="large"
+                color="white"
+              >
+                <Typography
+                  as="span"
+                  variant="paragraph"
+                  weight="large"
+                  color="white"
+                  class="font-bold"
+                >
+                  Puedes ver la comida que ofrece
+                </Typography> el negocio ese día.
+              </Typography>
+            </li>
+
+
+
+          </ul>
         </div>
-        <!-- card 3 -->
-        <div class="flex flex-col h-[440px] w-[286px] relative">
-          <Image
-            src={"/img/home-ilustration-3.webp"}
-            width={270}
-            height={320}
-            alt={""}
-            class={"z-10"}
+        <div class="flex flex-col lg:flex-row gap-4">
+          <ButtomStores
+            url="#"
+            textBtn="Prueba gratis por 30 días"
+            redirectStoresComensal
+            class="bg-white cursor-pointer"
+            textColor="primary"
           />
-          <!-- card text -->
-          <div class="absolute bottom-0 right-0">
-            <!-- 100px, 24px, 24px, 24px -->
-            <div
-              class="flex flex-col h-[360px] w-[270px] shadow-2xl rounded-[24px] bg-white p-6 rounded-tl-[100px] shadow-[#00183415] relative items-center"
+          <a
+            href="/promo-clientes"
+            class={`md:min-w-[256px] h-[48px] bg-accent border-accent border-2 flex flex-row items-center justify-center rounded cursor-pointer`}
+          >
+            <Typography
+              variant="label"
+              weight="large"
+              color="white"
+              align="center"
             >
-              <div class="flex flex-col h-20 absolute bottom-0 px-6">
-                <Typography variant="heading" weight="xSmall" align="center">
-                  Negocios de comida cerca de ti
-                </Typography>
-              </div>
-            </div>
-          </div>
+              Ver video
+            </Typography>
+          </a>
         </div>
       </div>
     </div>
   </section>
-  <!-- ilustration download app -->
-  <section class="flex lg:h-[725px] mb-8 lg:mb-0 items-center">
-    <div
-      class="w-full lg:h-[504px] mx-auto max-w-[1280px] p-4 lg:p-0 flex flex-col lg:flex-row bg-primary rounded-tr-3xl rounded-br-[100px]"
-    >
-      <div class="w-full flex flex-col lg:items-center lg:justify-center">
-        <div class="gap-4 flex flex-col">
-          <Typography variant="heading" weight="large" color="white">
-            Descarga Mennu
-          </Typography>
-          <Typography variant="paragraph" weight="medium" color="white">
-            Encuentra menús económicos al alcance de tu bolsillo
-          </Typography>
-          <!-- qr y btns -->
-          <div class="flex flex-row items-center gap-4">
-            <Image
-              src={qrMennuComensal}
-              alt="Descarga App Mennu Comensal"
-              width={160}
-              height={160}
-              class={"hidden lg:block bg-white p-2"}
-            />
+<BannerTwo
+  title="Tu buscador de comida"
+  classTitle=""
+  textBtn="Descarga la app"
+  url={"#"}
+  redirectStoresComensal
+  linkPromo="/promo-clientes"
+  textPromo="Ver video"
+  imgs={[
+    {
+      src: imgHero1,
+      alt: "",
+      height: 624.47,
+      width: 240,
+      heightMobile: 624.47,
+      widthMobile: 240,
+    },
+    {
+      src: imgHero2,
+      alt: "",
+      height: 624.47,
+      width: 240,
+      heightMobile: 624.47,
+      widthMobile: 240,
+    },
+    {
+      src: imgHero3,
+      alt: "",
+      height: 624.47,
+      width: 240,
+      heightMobile: 624.47,
+      widthMobile: 240,
+    },
+    {
+      src: imgHero4,
+      alt: "",
+      height: 624.47,
+      width: 240,
+      heightMobile: 624.47,
+      widthMobile: 240,
+    },
+    {
+      src: imgHero5,
+      alt: "",
+      height: 624.47,
+      width: 240,
+      heightMobile: 624.47,
+      widthMobile: 240,
+    },
+    {
+      src: imgHero6,
+      alt: "",
+      height: 624.47,
+      width: 240,
+      heightMobile: 624.47,
+      widthMobile: 240,
+    },
+    {
+      src: imgHero7,
+      alt: "",
+      height: 624.47,
+      width: 240,
+      heightMobile: 624.47,
+      widthMobile: 240,
+    },
+    {
+      src: imgHero8,
+      alt: "",
+      height: 624.47,
+      width: 240,
+      heightMobile: 624.47,
+      widthMobile: 240,
+    },
+  ]}
+/>
+
+<!-- ilustration download app -->
+<section class="flex lg:h-[725px] mb-8 lg:mb-0 items-center relative">
+  <div
+    class="hidden lg:flex absolute h-[504px] w-1/2 bg-primary left-0 mx-auto z-0"
+  >
+  </div>
+  <div
+    class="w-full lg:h-[504px] z-10 mx-auto max-w-[1280px] p-4 lg:p-0 flex flex-col lg:flex-row bg-primary rounded-tr-3xl rounded-br-[100px]"
+  >
+    <div class="w-full flex flex-col lg:items-center lg:justify-center">
+      <div class="gap-4 flex flex-col">
+        <Typography variant="heading" weight="large" color="white">
+          Descarga la app Mennu Clientes
+        </Typography>
+        <Typography variant="paragraph" weight="medium" color="vividYellow">
+          Encuentra comida cerca de ti
+        </Typography>
+        <!-- qr y btns -->
+        <div class="flex flex-row items-center gap-4">
+          <img
+            src={qrMennuComensal.src}
+            alt="Descarga App Mennu Comensal"
+            width={160}
+            height={160}
+            class={"hidden lg:block bg-white p-2"}
+          />
+          <div
+            class="flex flex-col gap-4 items-center m-auto lg:m-0 lg:items-start"
+          >
+            <Typography
+              variant="paragraph"
+              weight="medium"
+              color="white"
+              class="hidden lg:block"
+            >
+              Escanea el código QR con la cámara de tu celular.
+            </Typography>
             <ButtonsAppsStore />
           </div>
         </div>
       </div>
-      <div class="w-full flex flex-col items-center justify-center">
-        <Image
-          src={homeMobileIlustration}
-          alt="Descarga App Mennu Comensal"
-          width={478}
-          height={646}
-          class={"mt-11"}
-        />
-      </div>
     </div>
-  </section>
-</Layout>
+    <div class="w-full flex flex-col items-center justify-center">
+      <img
+        src={homeMobileIlustration.src}
+        alt="Descarga App Mennu Comensal"
+        width={478}
+        height={646}
+        class={"mt-11"}
+        loading="lazy"
+      />
+    </div>
+  </div>
+</section>

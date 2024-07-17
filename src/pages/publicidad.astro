@@ -5,8 +5,10 @@ import Typography from "@/components/ui/typography/Typography.astro";
 import { getLangFromUrl, useTranslations } from "@/i18n/utils";
 import Layout from "@/layouts/Layout.astro";
 import publicidadIlustrationMobile from "@/assets/img/publicidad-zocalo-mobile.png";
-import { Image } from "astro:assets";
-const RECAPTCHA_SITE_KEY = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
+import publicidadBanner1 from "@/assets/img/publicidad/publicidad1.png";
+import publicidadBanner2 from "@/assets/img/publicidad/publicidad2.png";
+import { PUBLIC_RECAPTCHA_SITE_KEY } from "@/config/config";
+const RECAPTCHA_SITE_KEY = PUBLIC_RECAPTCHA_SITE_KEY
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 ---
@@ -25,7 +27,7 @@ const t = useTranslations(lang);
         alt: "Usando mennu seras un emprendedor exitoso",
         height: 370,
         width: 240,
-        src: "/img/banner-advertisers-2.webp",
+        src: publicidadBanner2,
         widthMobile: 155,
         heightMobile: 239,
       },
@@ -33,7 +35,7 @@ const t = useTranslations(lang);
         alt: "una mujer cocinando y emprendiendo en mennu",
         height: 370,
         width: 240,
-        src: "/img/banner-advertisers-1.webp",
+        src: publicidadBanner1,
         widthMobile: 155,
         heightMobile: 239,
       },
@@ -48,55 +50,55 @@ const t = useTranslations(lang);
         ¿Por qué comprar publicidad en Mennu?
       </Typography>
       <!-- cards de info -->
-      <div class="flex flex-row flex-wrap w-full gap-8 items-center">
+      <div class="flex flex-row flex-wrap w-full gap-8">
         <!-- first card -->
-        <div class="flex flex-col w-[329px] gap-4">
-          <Image
+        <div class="flex flex-col w-[340px] gap-4">
+          <img
             src="/img/person-circle-icon.webp"
             width={52}
             height={52}
             alt="icono de una persona en un circulo"
           />
           <div class="flex flex-col gap-1">
-            <Typography variant="heading" weight="xSmall">
+            <Typography variant="label" weight="xLarge">
               Encuentra clientes potenciales
             </Typography>
-            <Typography variant="paragraph" weight="medium">
+            <Typography variant="paragraph" weight="medium" color="gray700">
               Tu publicidad tendrá mayor alcance por personas y empresas que
               forman parte de tu público objetivo.
             </Typography>
           </div>
         </div>
         <!-- second card -->
-        <div class="flex flex-col w-[329px] gap-4">
-          <Image
+        <div class="flex flex-col w-[340px] gap-4">
+          <img
             src="/img/money-circle-icon.webp"
             width={52}
             height={52}
             alt="icono de una persona en un circulo"
           />
           <div class="flex flex-col gap-1">
-            <Typography variant="heading" weight="xSmall">
+            <Typography variant="label" weight="xLarge">
               Económico
             </Typography>
-            <Typography variant="paragraph" weight="medium">
+            <Typography variant="paragraph" weight="medium" color="gray700">
               Tenemos planes de pago flexibles en inversión y duración.
             </Typography>
           </div>
         </div>
         <!-- third card -->
-        <div class="flex flex-col w-[329px] gap-4">
-          <Image
+        <div class="flex flex-col w-[340px] gap-4">
+          <img
             src="/img/chart-circle-icon.webp"
             width={52}
             height={52}
             alt="icono de una persona en un circulo"
           />
           <div class="flex flex-col gap-1">
-            <Typography variant="heading" weight="xSmall">
+            <Typography variant="label" weight="xLarge">
               Indicadores en línea
             </Typography>
-            <Typography variant="paragraph" weight="medium">
+            <Typography variant="paragraph" weight="medium" color="gray700">
               Visualización en línea del número de impresiones de tu publicidad
               y su CTR (Click Through Rate).
             </Typography>
@@ -105,7 +107,7 @@ const t = useTranslations(lang);
       </div>
       <a
         href="#contact-form"
-        class={`w-full lg:w-[343px] h-[56px] bg-primary flex flex-row items-center justify-center `}
+        class={`w-full lg:w-[343px] h-[56px] bg-primary flex flex-row items-center justify-center rounded`}
       >
         <Typography variant="label" weight="large" color="white" align="center">
           Comprar publicidad
@@ -129,8 +131,8 @@ const t = useTranslations(lang);
         <Typography variant="paragraph" weight="medium">
           Medida pixeles: 320 ancho x 100 alto
         </Typography>
-        <Image
-          src={publicidadIlustrationMobile}
+        <img
+          src={publicidadIlustrationMobile.src}
           width={290}
           height={100}
           alt="ilustración de un anuncio tipo zócalo"

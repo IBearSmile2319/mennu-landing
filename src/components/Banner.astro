@@ -1,14 +1,19 @@
 ---
 import { Image } from "astro:assets";
 import Typography from "./ui/typography/Typography.astro";
+import type { ImageMetadata } from "astro";
 interface Props {
   title: string;
   description: string;
   textBtn: string;
   url: string;
+  imgBeforeCts?: ImageMetadata;
+  imgBeforeWidth?: number;
+  imgBeforeHeight?: number;
+  imgBeforeAlt?: string;
   imgs: {
     // src: ImageMetadata;
-    src: string;
+    src: ImageMetadata;
     alt: string;
     width: number;
     height: number;
@@ -17,6 +22,12 @@ interface Props {
   }[];
   redirectStoresComensal?: boolean;
   redirectStoresNegocio?: boolean;
+  centerTitle?: boolean;
+  linkPromo?: string;
+  textPromo?: string;
+  classTitle?: string;
+  classDescription?: string;
+  imgBeforeContentClass?: string;
 }
 
 const {
@@ -27,29 +38,79 @@ const {
   imgs,
   redirectStoresComensal,
   redirectStoresNegocio,
+  centerTitle = true,
+  linkPromo,
+  textPromo,
+  classTitle,
+  // nuevos
+  imgBeforeCts,
+  imgBeforeWidth,
+  imgBeforeHeight,
+  imgBeforeAlt,
+  imgBeforeContentClass,
+  classDescription,
 } = Astro.props;
 
-const mb = imgs.length > 1 ? "mb-10 lg:mb-20" : "mb-0";
+const mb = imgs.length > 1 ? "mb-10 lg:mb-20 mr-4" : "mb-0";
 const mt = imgs.length > 1 ? "mt-10 lg:mt-20" : "mt-0";
 ---
 
 <section class="flex lg:h-[612px] mb-4 lg:mb-0">
   <!-- container -->
   <div
-    class="w-full mx-auto max-w-[1280px] flex xs:flex-col-reverse sm:flex-row lg:gap-6 gap-4"
+    class={`
+    w-full 
+    mx-auto 
+    max-w-[1280px] 
+    flex 
+    items-center 
+    xs:flex-col-reverse 
+    sm:flex-row 
+    lg:gap-6 
+    gap-4
+    `}
   >
     <!-- info container -->
     <div
-      class="flex flex-col justify-center w-full h-full lg:gap-6 gap-4 items-center lg:items-start px-4"
+      class="flex flex-col justify-center w-full h-full gap-4 items-center px-4"
     >
       <!-- h1 -->
-      <Typography variant="heading" weight="large">
-        {title}
-      </Typography>
+       {
+        title &&
+        <Typography
+          variant="heading"
+          weight="large"
+          align={centerTitle ? "center" : "left"}
+          class={`${classTitle} font-semibold w-[343px]`}
+        >
+          {title}
+        </Typography>
+       }
       <!-- h2 -->
-      <Typography variant="heading" weight="xSmall" class="text-gray-600">
-        {description}
-      </Typography>
+      {
+        description && (
+          <Typography
+            variant="heading"
+            weight="xSmall"
+            color="gray600"
+            class={`${classDescription} w-[343px]`}
+          >
+            {description}
+          </Typography>
+        )
+      }
+      {
+        imgBeforeCts && (
+          <div class={imgBeforeContentClass}>
+            <Image
+              src={imgBeforeCts}
+              alt={imgBeforeAlt || ""}
+              width={imgBeforeWidth}
+              height={imgBeforeHeight}
+            />
+          </div>
+        )
+      }
       <!-- button -->
       <a
         href={url}
@@ -58,23 +119,40 @@ const mt = imgs.length > 1 ? "mt-10 lg:mt-20" : "mt-0";
           : redirectStoresNegocio
             ? "redirectStoreNegocio"
             : ""}
-        class={`w-[343px] h-[56px] bg-primary flex flex-row items-center justify-center `}
+        class={`w-[343px] h-[56px] bg-primary flex flex-row items-center justify-center rounded`}
       >
         <Typography variant="label" weight="large" color="white" align="center">
           {textBtn}
         </Typography>
       </a>
+      {
+        linkPromo && (
+          <a
+            href={linkPromo}
+            class={`w-[343px] h-[56px] bg-white border-accent border-2 flex flex-row items-center justify-center rounded`}
+          >
+            <Typography
+              variant="label"
+              weight="large"
+              color="accent"
+              align="center"
+            >
+              {textPromo}
+            </Typography>
+          </a>
+        )
+      }
     </div>
     <!-- imgs rounds -->
     <div
-      class={`flex items-center ${imgs.length === 1 ? "justify-start" : " lg:justify-center h-[316px] mt-4 lg:mt-0"} w-full lg:h-full lg:py-20 gap-4 items-center flex-row-reverse`}
+      class={`flex items-center ${imgs.length === 1 ? "justify-center my-4" : " lg:justify-center h-[316px] mt-4 lg:mt-0"} w-full lg:h-full lg:py-20 gap-4 items-center flex-row-reverse`}
     >
       <!-- <div class="w-328 h-316 lg:hidden flex flex-row-reverse"> -->
       {
         imgs.map((img, i) => (
           <>
-            <Image
-              src={img.src}
+            <img
+              src={img.src.src}
               alt={img.alt}
               width={img.width}
               height={img.height}
@@ -85,8 +163,8 @@ const mt = imgs.length > 1 ? "mt-10 lg:mt-20" : "mt-0";
                 "hidden lg:block",
               ]}
             />
-            <Image
-              src={img.src}
+            <img
+              src={img.src.src}
               alt={img.alt}
               width={img.widthMobile}
               height={img.heightMobile}
@@ -134,7 +212,9 @@ const mt = imgs.length > 1 ? "mt-10 lg:mt-20" : "mt-0";
     }
   }
 
+  // ejecutar al cargar la pagina y al finalizar la animacion solo funciona para google chrome
   window.addEventListener("animationend", toggleMenu);
   window.addEventListener("DOMContentLoaded", toggleMenu);
 
+  document.addEventListener("astro:page-load", toggleMenu);
 </script>

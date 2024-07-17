@@ -1,18 +1,57 @@
 import { useState } from "preact/hooks";
 import Typography from "../ui/typography/Typography";
+import { URL_API } from '../../config/config';
 
-const typeRoleOption = [
-    "Comensal",
-    "Negocio de comida",
-    "Anunciante",
-    "Otro"
-];
+// const typeRoleOption = [
+//     "Comensal",
+//     "Negocio de comida",
+//     "Anunciante",
+//     "Otro"
+// ];
 
-const listMotiveOptions = [
-    "Dar una sugerencia",
-    "Quiero trabajar con ustedes",
-    "Reportar un problema",
-    "Otro"
+// const listMotiveOptions = [
+//     "Dar una sugerencia",
+//     "Quiero trabajar con ustedes",
+//     "Reportar un problema",
+//     "Otro"
+// ]
+
+const typeUser = [
+    {
+        "id": 1,
+        "nombre": "Cliente"
+    },
+    {
+        "id": 2,
+        "nombre": "Socio"
+    },
+    {
+        "id": 3,
+        "nombre": "Anunciante"
+    },
+    {
+        "id": 4,
+        "nombre": "Otro"
+    }
+]
+
+const typeMotivation = [
+    {
+        "id": 1,
+        "nombre": "Dar una sugerencia"
+    },
+    {
+        "id": 2,
+        "nombre": "Quiero trabajar con ustedes"
+    },
+    {
+        "id": 3,
+        "nombre": "Reportar un problema"
+    },
+    {
+        "id": 4,
+        "nombre": "Otro"
+    }
 ]
 
 interface IForm {
@@ -23,12 +62,25 @@ interface IForm {
     motivo: string;
     mensaje: string;
 }
+
+interface IBody {
+    tipo: string;
+    idTipoUsuario: number;
+    nombres: string;
+    apellidos: string;
+    numero: string;
+    email: string;
+    idTipoMotivo: number;
+    consulta: string;
+}
+
 interface Props {
     title?: string;
 
 }
-const ContactFormAbout = ({ title='Contáctanos' }: Props) => {
+const ContactFormAbout = ({ title = 'Contáctanos' }: Props) => {
     const [loading, setLoading] = useState(false);
+    const [success, setSuccess] = useState(false);
     const [form, setForm] = useState<IForm>({
         role: "",
         nombre: "",
@@ -50,172 +102,251 @@ const ContactFormAbout = ({ title='Contáctanos' }: Props) => {
         const { name, value } = e.target;
         setForm({ ...form, [name]: value });
         setErrors({ ...errors, [name]: "" });
-    }
+    };
 
     const validateForm = () => {
-        return true
-    }
+        let errors: IForm = {
+            role: "",
+            nombre: "",
+            apellido: "",
+            celular: "",
+            motivo: "",
+            mensaje: ""
+        };
 
-    const onSubmitNeg = (e: any) => {
+        if (!form.role) errors.role = "Selecciona un rol válido.";
+        if (form.nombre.length < 2) errors.nombre = "Ingresa un nombre válido.";
+        if (form.apellido.length < 2) errors.apellido = "Ingresa un apellido válido.";
+        if (form.celular.length !== 9 || isNaN(Number(form.celular))) errors.celular = "Ingresa un número de celular válido.";
+        if (!form.motivo) errors.motivo = "Selecciona un motivo válido.";
+        if (form.mensaje.length < 1) errors.mensaje = "Ingresa un mensaje válido.";
+
+        setErrors(errors);
+        return Object.values(errors).some(error => error.length > 0);
+    };
+
+    const onSubmitNeg = async (e: any) => {
         e.preventDefault();
         setLoading(true);
-        setTimeout(() => {
+        setSuccess(false);
+        if (validateForm()) {
             setLoading(false);
-        }, 2000);
-        if (validateForm()) return;
-    }
+            return;
+        }
+
+        const body: IBody = {
+            tipo: "contacto",
+            idTipoUsuario: typeUser.find((user) => user.nombre === form.role)?.id || 0,
+            nombres: form.nombre,
+            apellidos: form.apellido,
+            numero: form.celular,
+            email: "",
+            idTipoMotivo: typeMotivation.find((motivation) => motivation.nombre === form.motivo)?.id || 0,
+            consulta: form.mensaje
+        };
+
+        try {
+            // const response = await fetch('https://dev.api.mennu.net/v1/core/api/contact/save', {
+            const response = await fetch(`${URL_API}contact/save`, {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(body),
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            const data = await response.json();
+            console.log('Success:', data);
+            setSuccess(true);
+            setLoading(false);
+            setTimeout(() => {
+                setSuccess(false);
+            }, 3000);
+        } catch (error) {
+            console.error('Error:', error);
+            setLoading(false);
+            setSuccess(false);
+        }
+    };
     return (
         <>
-        <div class="flex flex-col relative">
-            <Typography variant="heading" weight="medium"> {title} </Typography>
-            <form onSubmit={onSubmitNeg} class="my-4 gap-4 flex flex-col">
-                {/* Indícanos si eres : select*/}
-                <label for="role" class="flex flex-col gap-1 ">
-                    <Typography variant="label" weight="small"> Indícanos si eres: </Typography>
-                    <select
-                        id="role"
-                        name="role"
-                        value={form.role}
-                        class={`bg-[#EEEEEE] h-9 p-2 appearance-none leading-tight focus:outline-none focus:shadow-none font-hind font-normal text-sm
+            <div class="flex flex-col relative">
+                <Typography variant="heading" weight="medium"> {title} </Typography>
+                <form onSubmit={onSubmitNeg} class="my-4 gap-4 flex flex-col">
+                    {/* Indícanos si eres : select*/}
+                    <label for="role" class="flex flex-col gap-1 ">
+                        <Typography variant="label" weight="small"> Indícanos si eres: </Typography>
+                        <select
+                            id="role"
+                            name="role"
+                            value={form.role}
+                            class={`bg-[#EEEEEE] h-9 p-2 appearance-none leading-tight focus:outline-none focus:shadow-none font-hind font-normal text-sm
                         ${errors.role ? "bg-[#FFEFED] border-[#F1998E]" : ""}
                         `}
-                        onChange={handleChange}
-                    >
-                        <option value="">Selecciona una opción</option>
-                        {typeRoleOption.map((option) => (
+                            onChange={handleChange}
+                        >
+                            <option value="">Selecciona una opción</option>
+                            {/* {typeRoleOption.map((option) => (
                             <option value={option}>{option}</option>
-                        ))}
-                    </select>
-                    {
-                        errors.role && <Typography variant="paragraph" weight="small" color="complementaryII">
-                            {errors.role}
-                        </Typography>
-                    }
-                </label>
-                {/* nombre y apelliso: inputs */}
-                <div class="flex flex-col lg:flex-row gap-4">
-                    <label for="nombre" class="flex flex-col gap-1 w-full">
-                        <Typography variant="label" weight="small"> Nombre </Typography>
-                        <input
-                            type="text"
-                            id="nombre"
-                            value={form.nombre}
-                            name="nombre"
-                            class={`bg-[#EEEEEE] h-9 p-2 appearance-none leading-tight focus:outline-none focus:shadow-none font-hind font-normal text-sm
-                            ${errors.nombre ? "bg-[#FFEFED] border-[#F1998E]" : ""}
-                            `}
-                            placeholder="Ingresa tu nombre"
-                            onChange={handleChange}
-                        />
+                        ))} */}
+                            {typeUser.map((option) => (
+                                <option value={option.nombre}>{option.nombre}</option>
+                            ))}
+                        </select>
                         {
-                            errors.nombre && <Typography variant="paragraph" weight="small" color="complementaryII">
-                                {errors.nombre}
+                            errors.role && <Typography variant="paragraph" weight="small" color="complementaryII">
+                                {errors.role}
                             </Typography>
                         }
                     </label>
-                    <label for="apellido" class="flex flex-col gap-1 w-full">
-                        <Typography variant="label" weight="small"> Apellidos </Typography>
-                        <input
-                            type="text"
-                            id="apellido"
-                            value={form.apellido}
-                            name="apellido"
-                            class={`bg-[#EEEEEE] h-9 p-2 appearance-none leading-tight focus:outline-none focus:shadow-none font-hind font-normal text-sm
+                    {/* nombre y apelliso: inputs */}
+                    <div class="flex flex-col lg:flex-row gap-4">
+                        <label for="nombre" class="flex flex-col gap-1 w-full">
+                            <Typography variant="label" weight="small"> Nombre </Typography>
+                            <input
+                                type="text"
+                                id="nombre"
+                                value={form.nombre}
+                                name="nombre"
+                                class={`bg-[#EEEEEE] h-9 p-2 appearance-none leading-tight focus:outline-none focus:shadow-none font-hind font-normal text-sm
                             ${errors.nombre ? "bg-[#FFEFED] border-[#F1998E]" : ""}
                             `}
-                            placeholder="Ingresa tus apellidos"
-                            onChange={handleChange}
-                        />
-                        {
-                            errors.apellido && <Typography variant="paragraph" weight="small" color="complementaryII">
-                                {errors.apellido}
-                            </Typography>
-                        }
-                    </label>
-                </div>
-                {/* celular: input */}
-                <label for="celular" class="flex flex-col gap-1">
-                    <Typography variant="label" weight="small"> Celular </Typography>
-                    <input
-                        type="text"
-                        id="celular"
-                        name="celular"
-                        value={form.celular}
-                        class={`bg-[#EEEEEE] h-9 p-2 appearance-none leading-tight focus:outline-none focus:shadow-none font-hind font-normal text-sm 
+                                placeholder="Ingresa tu nombre"
+                                onChange={handleChange}
+                            />
+                            {
+                                errors.nombre && <Typography variant="paragraph" weight="small" color="complementaryII">
+                                    {errors.nombre}
+                                </Typography>
+                            }
+                        </label>
+                        <label for="apellido" class="flex flex-col gap-1 w-full">
+                            <Typography variant="label" weight="small"> Apellidos </Typography>
+                            <input
+                                type="text"
+                                id="apellido"
+                                value={form.apellido}
+                                name="apellido"
+                                class={`bg-[#EEEEEE] h-9 p-2 appearance-none leading-tight focus:outline-none focus:shadow-none font-hind font-normal text-sm
+                            ${errors.nombre ? "bg-[#FFEFED] border-[#F1998E]" : ""}
+                            `}
+                                placeholder="Ingresa tus apellidos"
+                                onChange={handleChange}
+                            />
+                            {
+                                errors.apellido && <Typography variant="paragraph" weight="small" color="complementaryII">
+                                    {errors.apellido}
+                                </Typography>
+                            }
+                        </label>
+                    </div>
+                    {/* celular: input */}
+                    <label for="celular" class="flex flex-col gap-1">
+                        <Typography variant="label" weight="small"> Celular </Typography>
+                        <input
+                            type="text"
+                            id="celular"
+                            name="celular"
+                            value={form.celular}
+                            class={`bg-[#EEEEEE] h-9 p-2 appearance-none leading-tight focus:outline-none focus:shadow-none font-hind font-normal text-sm 
                         ${errors.celular ? "bg-[#FFEFED] border-[#F1998E]" : ""}
                         `}
-                        maxLength={9}
-                        placeholder="Ingresa tu número de celular"
-                        onChange={handleChange}
-                    />
-                    {
-                        errors.celular && <Typography variant="paragraph" weight="small" color="complementaryII">
-                            {errors.celular}
-                        </Typography>
-                    }
-                </label>
-                {/* motivo: select */}
-                <label for="motivo" class="flex flex-col gap-1">
-                    <Typography variant="label" weight="small"> Motivo </Typography>
-                    <select
-                        id="motivo"
-                        name="motivo"
-                        value={form.motivo}
-                        class={`bg-[#EEEEEE] h-9 p-2 appearance-none leading-tight focus:outline-none focus:shadow-none font-hind font-normal text-sm
+                            maxLength={9}
+                            placeholder="Ingresa tu número de celular"
+                            onChange={handleChange}
+                        />
+                        {
+                            errors.celular && <Typography variant="paragraph" weight="small" color="complementaryII">
+                                {errors.celular}
+                            </Typography>
+                        }
+                    </label>
+                    {/* motivo: select */}
+                    <label for="motivo" class="flex flex-col gap-1">
+                        <Typography variant="label" weight="small"> Motivo </Typography>
+                        <select
+                            id="motivo"
+                            name="motivo"
+                            value={form.motivo}
+                            class={`bg-[#EEEEEE] h-9 p-2 appearance-none leading-tight focus:outline-none focus:shadow-none font-hind font-normal text-sm
                         ${errors.motivo ? "bg-[#FFEFED] border-[#F1998E]" : ""}
                         `}
-                        onChange={handleChange}
-                    >
-                        <option value="">Selecciona una opción</option>
-                        {listMotiveOptions.map((option) => (
+                            onChange={handleChange}
+                        >
+                            <option value="">Selecciona una opción</option>
+                            {/* {listMotiveOptions.map((option) => (
                             <option value={option}>{option}</option>
-                        ))}
-                    </select>
-                    {
-                        errors.motivo && <Typography variant="paragraph" weight="small" color="complementaryII">
-                            {errors.motivo}
-                        </Typography>
-                    }
-                </label>
-                {/* mensaje: textarea */}
-                <label for="mensaje" class="flex flex-col gap-1">
-                    <Typography variant="label" weight="small"> Escribe tu mensaje o sugerencia aquí</Typography>
-                    <textarea
-                        id="mensaje"
-                        name="mensaje"
-                        value={form.mensaje}
-                        class={`bg-[#EEEEEE] p-2 appearance-none leading-tight focus:outline-none focus:shadow-none font-hind font-normal text-sm
+                        ))} */}
+                            {typeMotivation.map((option) => (
+                                <option value={option.nombre}>{option.nombre}</option>
+                            ))}
+                        </select>
+                        {
+                            errors.motivo && <Typography variant="paragraph" weight="small" color="complementaryII">
+                                {errors.motivo}
+                            </Typography>
+                        }
+                    </label>
+                    {/* mensaje: textarea */}
+                    <label for="mensaje" class="flex flex-col gap-1">
+                        <Typography variant="label" weight="small"> Escribe tu mensaje o sugerencia aquí</Typography>
+                        <textarea
+                            id="mensaje"
+                            name="mensaje"
+                            value={form.mensaje}
+                            class={`bg-[#EEEEEE] p-2 appearance-none leading-tight focus:outline-none focus:shadow-none font-hind font-normal text-sm
                         ${errors.mensaje ? "bg-[#FFEFED] border-[#F1998E]" : ""}
                         `}
-                        placeholder="Escribe el detalle de tu mensaje, consulta o sugerencia."
-                        onChange={handleChange}
-                    />
-                    {
-                        errors.mensaje && <Typography variant="paragraph" weight="small" color="complementaryII">
-                            {errors.mensaje}
+                            placeholder="Escribe el detalle de tu mensaje, consulta o sugerencia."
+                            onChange={handleChange}
+                        />
+                        {
+                            errors.mensaje && <Typography variant="paragraph" weight="small" color="complementaryII">
+                                {errors.mensaje}
+                            </Typography>
+                        }
+                    </label>
+
+                    <button
+                        class="bg-primary text-white h-14 w-full lg:w-80 disabled:bg-[#BDBDBD] disabled:cursor-not-allowed disabled:opacity-50 rounded"
+                        type="submit"
+                        // onClick={onSubmitNeg}
+                        disabled={loading}
+                    >
+
+                        <Typography variant="label" weight="large" color="white" align="center">
+                            {loading ?
+                                <div class="flex justify-center items-center gap-2">
+                                    <div class="w-4 h-4 border-2 border-t-[#fff] border-l-[#fff] rounded-full animate-spin"></div>
+                                </div>
+                                : "Enviar"}
                         </Typography>
-                    }
-                </label>
+                    </button>
+                </form>
+                {
+                    success &&
+                    <div class={`flex flex-row gap-2 items-center`}>
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <mask id="mask0_27731_5361" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="24">
+                                <rect width="24" height="24" fill="#D9D9D9" />
+                            </mask>
+                            <g mask="url(#mask0_27731_5361)">
+                                <path d="M10.5808 16.2538L17.3038 9.53075L16.25 8.47693L10.5808 14.1462L7.73075 11.2962L6.67693 12.35L10.5808 16.2538ZM12.0016 21.5C10.6877 21.5 9.45268 21.2506 8.29655 20.752C7.1404 20.2533 6.13472 19.5765 5.2795 18.7217C4.42427 17.8669 3.74721 16.8616 3.24833 15.706C2.74944 14.5504 2.5 13.3156 2.5 12.0017C2.5 10.6877 2.74933 9.45268 3.248 8.29655C3.74667 7.1404 4.42342 6.13472 5.27825 5.2795C6.1331 4.42427 7.13834 3.74721 8.29398 3.24833C9.44959 2.74944 10.6844 2.5 11.9983 2.5C13.3122 2.5 14.5473 2.74933 15.7034 3.248C16.8596 3.74667 17.8652 4.42342 18.7205 5.27825C19.5757 6.1331 20.2527 7.13834 20.7516 8.29398C21.2505 9.44959 21.5 10.6844 21.5 11.9983C21.5 13.3122 21.2506 14.5473 20.752 15.7034C20.2533 16.8596 19.5765 17.8652 18.7217 18.7205C17.8669 19.5757 16.8616 20.2527 15.706 20.7516C14.5504 21.2505 13.3156 21.5 12.0016 21.5Z" fill="#3AA76D" />
+                            </g>
+                        </svg>
 
-                <button
-                    class="bg-primary text-white h-14 w-full lg:w-80 disabled:bg-[#BDBDBD] disabled:cursor-not-allowed disabled:opacity-50"
-                    type="submit"
-                    // onClick={onSubmitNeg}
-                    disabled={loading}
-                >
+                        <Typography variant="label" weight="large">
+                            ¡Enviado exitosamente!
+                        </Typography>
+                    </div>
+                }
+            </div>
 
-                    <Typography variant="label" weight="large" color="white" align="center">
-                        {loading ?
-                            <div class="flex justify-center items-center gap-2">
-                                <div class="w-4 h-4 border-2 border-t-[#fff] border-l-[#fff] rounded-full animate-spin"></div>
-                            </div>
-                            : "Enviar"}
-                    </Typography>
-                </button>
-            </form>
-        </div>
-         
-      </>
+        </>
     )
 }
 

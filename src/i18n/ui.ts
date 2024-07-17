@@ -51,7 +51,7 @@ export const ui = {
         // banner
         'inicio.banner.title': 'Comida BARATA y BUENA cerca de ti',
         'inicio.banner.subtitle': 'Come rico, come bien… menús económicos al alcance de tu bolsillo en lugares cercanos a donde te encuentres.',
-        'inicio.banner.button': 'Descarga la APP',
+        'inicio.banner.button': 'Descarga la app',
         // section 1
         'inicio.section1.title': '¿Por qué usar la APP de Mennu?',
         // ilustaciones con su titulo y descripcion

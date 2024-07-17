@@ -32,12 +32,12 @@ export const typography = {
         xLarge: "",
     },
     heading: {
-        xxLarge: 'font-hind text-[40px] font-medium leading-[52px]',
-        xLarge: 'font-hind text-[36px] font-medium leading-[44px]',
-        large: 'font-hind text-[32px] font-medium leading-[40px]',
-        medium: 'font-hind text-[28px] font-medium leading-[36px]',
-        small: 'font-hind text-[24px] font-medium leading-[32px]',
-        xSmall: 'font-hind text-[20px] font-medium leading-[28px]',
+        xxLarge: 'font-hind text-[40px] font-semibold leading-[52px]',
+        xLarge: 'font-hind text-[36px] font-semibold leading-[44px]',
+        large: 'font-hind text-[32px] font-semibold leading-[40px]',
+        medium: 'font-hind text-[28px] font-semibold leading-[36px]',
+        small: 'font-hind text-[24px] font-semibold leading-[32px]',
+        xSmall: 'font-hind text-[20px] font-semibold leading-[28px]',
     },
     label: {
         large: 'font-hind text-[18px] font-medium leading-[24px]',
@@ -45,7 +45,7 @@ export const typography = {
         small: 'font-hind text-[14px] font-medium leading-[16px]',
         xSmall: 'font-hind text-[12px] font-medium leading-[16px]',
         xxLarge: "",
-        xLarge: "",
+        xLarge: "font-hind text-[20px] font-semibold leading-[20px]",
     },
     paragraph: {
         large: 'font-hind text-[18px] font-regular leading-[28px]',
@@ -79,6 +79,11 @@ export const colors = {
     complementaryI: 'text-complementaryI',
     complementaryII: 'text-complementaryII',
     white: 'text-white',
+    gray700: 'text-[#333333]',
+    gray600: 'text-[#545454]',
+    vividYellow: 'text-[#F2B807]',
+    darkPink: 'text-[#F22E8A]'
+    
 } as const;
 
 export type TTypographyProps = {
