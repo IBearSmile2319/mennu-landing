@@ -1,36 +1,36 @@
 ---
 import ButtonsAppsStore from "@/components/ButtonsAppsStore.astro";
-import ContactFormNeg from "@/components/advertisers/ContactFormNeg";
 import Typography from "@/components/ui/typography/Typography.astro";
 import { getLangFromUrl, useTranslations } from "@/i18n/utils";
 import Layout from "@/layouts/Layout.astro";
 import qrMennuNegocios from "../assets/img/qr-negocios.png";
 
-import negociosMobileIlustration from "../assets/img/negocios/negocios-App.png";
+import negociosMobileIlustration from "../assets/img/negocios/negocios-App.webp";
 
 // news
-import imgBackground from "../assets/img/negocios/negocios-HERO.png";
+import imgBackground from "../assets/img/negocios/negocios-HERO.webp";
 import imgltsOne1 from "@/assets/img/negocios/1.png";
 import imgltsOne2 from "@/assets/img/negocios/2.png";
 import imgltsOne3 from "@/assets/img/negocios/3.png";
 import imgltsOne4 from "@/assets/img/negocios/4.png";
 
-import imgltsTwo1 from "@/assets/img/negocios/plan1.png";
-import imgltsTwo2 from "@/assets/img/negocios/plan2.png";
-import imgltsTwo3 from "@/assets/img/negocios/plan3.png";
+import imgltsTwo1 from "@/assets/img/negocios/plan1.webp";
+import imgltsTwo2 from "@/assets/img/negocios/plan2.webp";
+import imgltsTwo3 from "@/assets/img/negocios/plan3.webp";
 
 import imgltsThree1 from "@/assets/img/negocios/restaurante.png";
 import imgltsThree2 from "@/assets/img/negocios/puesto.png";
 import imgltsThree3 from "@/assets/img/negocios/casa.png";
 
-import imgBackground1 from "@/assets/img/negocios/black.png";
-import imgBackground2 from "@/assets/img/negocios/blanco.png";
+import imgBackground1 from "@/assets/img/negocios/black.webp";
+import imgBackground2 from "@/assets/img/negocios/blanco.webp";
 
 import ButtomStores2 from "@/components/ui/buttons/ButtomStores2.astro";
 
 import { PUBLIC_RECAPTCHA_SITE_KEY } from "@/config/config";
 import BannerFormNeg from "@/components/negocios/BannerFormNeg";
 import ButtomStores from "@/components/ui/buttons/ButtomStores.astro";
+import ContactFormNeg from "@/components/advertisers/ContactFormNeg";
 const RECAPTCHA_SITE_KEY = PUBLIC_RECAPTCHA_SITE_KEY;
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -210,7 +210,7 @@ const t = useTranslations(lang);
       </div>
       </div>
       <div
-        class="flex flex-col max-w-[397px] min-h-[516px] bg-white bg-opacity-75 rounded-2xl px-[36px] pt-[36px] z-0"
+        class="flex flex-col max-w-[397px] min-h-[516px] pb-4 bg-white bg-opacity-75 rounded-2xl px-[36px] pt-[36px] z-0"
       >
         <BannerFormNeg client:load />
       </div>

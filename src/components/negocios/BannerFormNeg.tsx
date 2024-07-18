@@ -1,66 +1,81 @@
 import { useState } from "preact/hooks";
 import Typography from "../ui/typography/Typography";
 import { URL_API } from '../../config/config';
-import imgBackground from "../../assets/img/negocios/negocios-HERO.png";
 import { colors } from "../ui/typography/types";
 
 interface IForm {
     nombre: string;
-    telefono: string;
+    apellido: string;
+    celular: string;
     tipoNegocio: string;
     direccion: string;
 }
 
-const tipoNegocios = [
-    { nombre: "Restaurante" },
-    { nombre: "Cafetería" },
-    { nombre: "Panadería" },
-    { nombre: "Pastelería" },
-    { nombre: "Heladería" },
-    { nombre: "Bar" },
-    { nombre: "Catering" },
-    { nombre: "Food Truck" },
-    { nombre: "Otros" }
+const typeCommerce = [
+    {
+        "id": 1,
+        "nombre": "Restaurante"
+    },
+    {
+        "id": 2,
+        "nombre": "Puesto de comida"
+    },
+    {
+        "id": 3,
+        "nombre": "Cocina en casa"
+    }
 ]
+
+interface IBody {
+    tipo: string; // registro negocio
+    nombres: string;
+    apellidos: string;
+    numero: string;
+    idTipoNegocio: number;
+    direccion: string;
+}
 
 const BannerFormNeg = () => {
     const [loading, setLoading] = useState<boolean>(false);
     const [success, setSuccess] = useState<boolean>(false);
     const [form, setForm] = useState<IForm>({
         nombre: "",
-        telefono: "",
+        apellido: "",
+        celular: "",
         tipoNegocio: "",
         direccion: ""
     });
     const [errors, setErrors] = useState<IForm>({
         nombre: "",
-        telefono: "",
+        apellido: "",
+        celular: "",
         tipoNegocio: "",
         direccion: ""
     });
 
     const handleChange = (e: any) => {
-        setForm({
-            ...form,
-            [e.target.name]: e.target.value
-        });
+        const { name, value } = e.target;
+        setForm({ ...form, [name]: value });
+        setErrors({ ...errors, [name]: "" });
     }
 
 
     const validateForm = () => {
         let errors: IForm = {
             nombre: "",
-            telefono: "",
+            apellido: "",
+            celular: "",
             tipoNegocio: "",
             direccion: ""
         };
 
-        if (!form.nombre) errors.nombre = "El nombre es requerido";
-        if (!form.telefono) errors.telefono = "El teléfono es requerido";
-        if (!form.tipoNegocio) errors.tipoNegocio = "El tipo de negocio es requerido";
-        if (!form.direccion) errors.direccion = "La dirección es requerida";
+        if (form.nombre.trim() === "" || form.nombre.length < 2) errors.nombre = "Ingresa un nombre válido";
+        if (form.apellido.trim() === "" || form.apellido.length < 2) errors.apellido = "Ingresa un apellido válido";
+        if (form.celular.trim() === "" || form.celular.length !== 9 || isNaN(Number(form.celular))) errors.celular = "Ingresa un número de celular válido";
+        if (form.direccion.trim() === "" || form.direccion.length < 5) errors.direccion = "Ingresa una dirección válida";
+        if (form.tipoNegocio === "") errors.tipoNegocio = "Selecciona un tipo de negocio";
         setErrors(errors);
-        return Object.values(errors).every((err) => err === "");
+        return Object.values(errors).some((error) => error.length > 0);
     }
 
     const onSubmitNeg = async (e: any) => {
@@ -72,31 +87,63 @@ const BannerFormNeg = () => {
             return;
         }
 
-        setTimeout(() => {
+        const body: IBody = {
+            tipo: "registro negocio",
+            nombres: form.nombre,
+            apellidos: form.apellido,
+            numero: form.celular,
+            idTipoNegocio: typeCommerce.find((commerce) => commerce.nombre === form.tipoNegocio)?.id || 0,
+            direccion: form.direccion
+        };
+
+        try {
+            // const response = await fetch('https://dev.api.mennu.net/v1/core/api/contact/save', {
+            const response = await fetch(`${URL_API}contact/save`, {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(body),
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            const data = await response.json();
+            console.log('Success:', data);
+            setSuccess(true);
+            setLoading(false);
+            setTimeout(() => {
+                setSuccess(false);
+            }, 3000);
+        } catch (error) {
+            console.error('Error:', error);
             setLoading(false);
             setSuccess(false);
-        }, 200);
+        }
+
 
     }
 
     return (
-            <div class="flex flex-col relative max-w-[333px]">
-                <Typography Tag="h2" variant="heading" weight="medium">
-                    REGISTRA TU NEGOCIO
-                </Typography>
-                <form onSubmit={onSubmitNeg}
-                    class="my-4 gap-4 flex flex-col">
+        <div class="flex flex-col relative max-w-[333px]">
+            <Typography Tag="h2" variant="heading" weight="medium">
+                REGISTRA TU NEGOCIO
+            </Typography>
+            <form onSubmit={onSubmitNeg}
+                class="my-4 gap-4 flex flex-col">
+                <div class="flex flex-col lg:flex-row gap-4">
                     <label for="nombre" class="flex flex-col gap-1 w-full">
-                        <Typography variant="label" weight="small"> Nombre y Apellidos </Typography>
+                        <Typography variant="label" weight="small"> Nombre </Typography>
                         <input
                             type="text"
                             id="nombre"
                             value={form.nombre}
                             name="nombre"
-                            class={`bg-[#EEEEEE] h-9 p-2 appearance-none leading-tight focus:outline-none focus:shadow-none font-hind font-normal text-sm
-                            ${errors.nombre ? "bg-[#FFEFED] border-[#F1998E]" : ""}
+                            class={`bg-[#EEEEEE] h-9 p-2 appearance-none leading-tight focus:outline-none focus:shadow-none font-hind font-normal text-sm ${errors.nombre ? "bg-[#FFEFED] border-[#F1998E]" : ""}
                             `}
-                            placeholder="Ingresa tu nombre completo"
+                            placeholder="Ingresa tu nombre"
                             onChange={handleChange}
                         />
                         {
@@ -105,94 +152,105 @@ const BannerFormNeg = () => {
                             </Typography>
                         }
                     </label>
-                    {/* Teléfono : Ingresa  tu número de celular*/}
-                    <label for="telefono" class="flex flex-col gap-1 w-full">
-                        <Typography variant="label" weight="small"> Teléfono </Typography>
+                    <label for="apellido" class="flex flex-col gap-1 w-full">
+                        <Typography variant="label" weight="small"> Apellido </Typography>
                         <input
                             type="text"
-                            id="telefono"
-                            value={form.telefono}
-                            name="telefono"
-                            class={`bg-[#EEEEEE] h-9 p-2 appearance-none leading-tight focus:outline-none focus:shadow-none font-hind font-normal text-sm
-                            ${errors.telefono ? "bg-[#FFEFED] border-[#F1998E]" : ""}
+                            id="apellido"
+                            value={form.apellido}
+                            name="apellido"
+                            class={`bg-[#EEEEEE] h-9 p-2 appearance-none leading-tight focus:outline-none focus:shadow-none font-hind font-normal text-sm ${errors.nombre ? "bg-[#FFEFED] border-[#F1998E]" : ""}
                             `}
-                            placeholder="Ingresa tu número de celular"
+                            placeholder="Ingresa tus apellidos"
                             onChange={handleChange}
                         />
                         {
-                            errors.telefono && <Typography variant="paragraph" weight="small" color="complementaryII">
-                                {errors.telefono}
+                            errors.apellido && <Typography variant="paragraph" weight="small" color="complementaryII">
+                                {errors.apellido}
                             </Typography>
                         }
                     </label>
-                    {/* Tipo de negocio :  Elige el tipo*/}
-                    <label for="role" class="flex flex-col gap-1 ">
-                        <Typography variant="label" weight="small"> Tipo de negocio </Typography>
-                        <select
-                            id="tipoNegocio"
-                            name="tipoNegocio"
-                            value={form.tipoNegocio}
-                            class={`bg-[#EEEEEE] h-9 p-2 appearance-none leading-tight focus:outline-none focus:shadow-none font-hind font-normal text-sm
+                </div>
+                {/* Teléfono : Ingresa  tu número de celular*/}
+                <label for="celular" class="flex flex-col gap-1 w-full">
+                    <Typography variant="label" weight="small"> Celular </Typography>
+                    <input
+                        type="text"
+                        id="celular"
+                        value={form.celular}
+                        name="celular"
+                        class={`bg-[#EEEEEE] h-9 p-2 appearance-none leading-tight focus:outline-none focus:shadow-none font-hind font-normal text-sm
+                            ${errors.celular ? "bg-[#FFEFED] border-[#F1998E]" : ""}
+                            `}
+                        placeholder="Ingresa tu número de celular"
+                        onChange={handleChange}
+                    />
+                    {
+                        errors.celular && <Typography variant="paragraph" weight="small" color="complementaryII">
+                            {errors.celular}
+                        </Typography>
+                    }
+                </label>
+                {/* Tipo de negocio :  Elige el tipo*/}
+                <label for="role" class="flex flex-col gap-1 ">
+                    <Typography variant="label" weight="small"> Tipo de negocio </Typography>
+                    <select
+                        id="tipoNegocio"
+                        name="tipoNegocio"
+                        value={form.tipoNegocio}
+                        class={`bg-[#EEEEEE] h-9 p-2 appearance-none leading-tight focus:outline-none focus:shadow-none font-hind font-normal text-sm
                         ${errors.tipoNegocio ? "bg-[#FFEFED] border-[#F1998E]" : ""}
                         `}
-                            onChange={handleChange}
-                        >
-                            <option value="">Elige el tipo</option>
-                            {/* {typeRoleOption.map((option) => (
-                            <option value={option}>{option}</option>
-                        ))} */}
-                            {/* {typeUser.map((option) => (
-                                <option value={option.nombre}>{option.nombre}</option>
-                            ))} */}
-                            {
-                                tipoNegocios.map((option) => (
-                                    <option value={option.nombre}>{option.nombre}</option>
-                                ))
-                            }
-                        </select>
-                        {
-                            errors.tipoNegocio && <Typography variant="paragraph" weight="small" color="complementaryII">
-                                {errors.tipoNegocio}
-                            </Typography>
-                        }
-                    </label>
-                    {/* Ciudad y distrito : Ingresa tu ciudad y distrito */}
-                    <label for="direccion" class="flex flex-col gap-1 w-full">
-                        <Typography variant="label" weight="small"> Dirección </Typography>
-                        <input
-                            type="text"
-                            id="direccion"
-                            value={form.direccion}
-                            name="direccion"
-                            class={`bg-[#EEEEEE] h-9 p-2 appearance-none leading-tight focus:outline-none focus:shadow-none font-hind font-normal text-sm
+                        onChange={handleChange}
+                    >
+                        <option value="">Elige el tipo</option>
+                        {typeCommerce.map((option) => (
+                            <option value={option.nombre}>{option.nombre}</option>
+                        ))}
+                    </select>
+                    {
+                        errors.tipoNegocio && <Typography variant="paragraph" weight="small" color="complementaryII">
+                            {errors.tipoNegocio}
+                        </Typography>
+                    }
+                </label>
+                {/* Ciudad y distrito : Ingresa tu ciudad y distrito */}
+                <label for="direccion" class="flex flex-col gap-1 w-full">
+                    <Typography variant="label" weight="small"> Ciudad y distrito </Typography>
+                    <input
+                        type="text"
+                        id="direccion"
+                        value={form.direccion}
+                        name="direccion"
+                        class={`bg-[#EEEEEE] h-9 p-2 appearance-none leading-tight focus:outline-none focus:shadow-none font-hind font-normal text-sm
                             ${errors.direccion ? "bg-[#FFEFED] border-[#F1998E]" : ""}
                             `}
-                            placeholder="Ingresa tu dirección"
-                            onChange={handleChange}
-                        />
-                        {
-                            errors.direccion && <Typography variant="paragraph" weight="small" color="complementaryII">
-                                {errors.direccion}
-                            </Typography>
-                        }
-                    </label>
-                    <button
-                        class="bg-primary text-white h-14 w-full lg:w-80 disabled:bg-[#BDBDBD] disabled:cursor-not-allowed disabled:opacity-50 rounded"
-                        type="submit"
-                        // onClick={onSubmitNeg}
-                        disabled={loading}
-                    >
-
-                        <Typography variant="label" weight="large" color="white" align="center">
-                            {loading ?
-                                <div class="flex justify-center items-center gap-2">
-                                    <div class="w-4 h-4 border-2 border-t-[#fff] border-l-[#fff] rounded-full animate-spin"></div>
-                                </div>
-                                : "Enviar"}
+                        placeholder="Ingresa tu ciudad y distrito"
+                        onChange={handleChange}
+                    />
+                    {
+                        errors.direccion && <Typography variant="paragraph" weight="small" color="complementaryII">
+                            {errors.direccion}
                         </Typography>
-                    </button>
-                </form>
-                {/* {
+                    }
+                </label>
+                <button
+                    class="bg-primary text-white h-14 w-full lg:w-80 disabled:bg-[#BDBDBD] disabled:cursor-not-allowed disabled:opacity-50 rounded"
+                    type="submit"
+                    // onClick={onSubmitNeg}
+                    disabled={loading}
+                >
+
+                    <Typography variant="label" weight="large" color="white" align="center">
+                        {loading ?
+                            <div class="flex justify-center items-center gap-2">
+                                <div class="w-4 h-4 border-2 border-t-[#fff] border-l-[#fff] rounded-full animate-spin"></div>
+                            </div>
+                            : "Enviar"}
+                    </Typography>
+                </button>
+            </form>
+            {
                             success &&
                             <div class={`flex flex-row gap-2 items-center`}>
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -208,8 +266,8 @@ const BannerFormNeg = () => {
                                     ¡Enviado exitosamente!
                                 </Typography>
                             </div>
-                        } */}
-            </div>
+                        }
+        </div>
     )
 }
 
