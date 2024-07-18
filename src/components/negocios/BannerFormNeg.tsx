@@ -127,12 +127,12 @@ const BannerFormNeg = () => {
     }
 
     return (
-        <div class="flex flex-col relative max-w-[333px]">
+        <div class="flex flex-col relative max-w-[426px]">
             <Typography Tag="h2" variant="heading" weight="medium">
                 REGISTRA TU NEGOCIO
             </Typography>
             <form onSubmit={onSubmitNeg}
-                class="my-4 gap-4 flex flex-col">
+                class="my-4 gap-4 flex flex-col w-full">
                 <div class="flex flex-col lg:flex-row gap-4">
                     <label for="nombre" class="flex flex-col gap-1 w-full">
                         <Typography variant="label" weight="small"> Nombre </Typography>
@@ -235,7 +235,7 @@ const BannerFormNeg = () => {
                     }
                 </label>
                 <button
-                    class="bg-primary text-white h-14 w-full lg:w-80 disabled:bg-[#BDBDBD] disabled:cursor-not-allowed disabled:opacity-50 rounded"
+                    class="bg-primary text-white h-14 w-full disabled:bg-[#BDBDBD] disabled:cursor-not-allowed disabled:opacity-50 rounded"
                     type="submit"
                     // onClick={onSubmitNeg}
                     disabled={loading}
