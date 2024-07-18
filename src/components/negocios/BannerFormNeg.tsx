@@ -153,7 +153,7 @@ const BannerFormNeg = () => {
                         }
                     </label>
                     <label for="apellido" class="flex flex-col gap-1 w-full">
-                        <Typography variant="label" weight="small"> Apellido </Typography>
+                        <Typography variant="label" weight="small"> Apellidos </Typography>
                         <input
                             type="text"
                             id="apellido"
